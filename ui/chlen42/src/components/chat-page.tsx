@@ -4,17 +4,12 @@
  */
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import ChatBubble from "./chat-bubble"
 
 export function ChatPage() {
   return (
     <div className="flex w-full h-screen max-w-3xl border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden dark:border-gray-800">
       <div className="flex-1 grid flex flex-col">
-        <div className="border-b border-gray-200 dark:border-gray-800 flex items-center p-4">
-          <div className="flex-1">
-            <h1 className="text-lg font-bold">Design Canvas</h1>
-          </div>
-          <Button size="sm">Clear</Button>
-        </div>
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="w-full aspect-[1/1] border border-gray-200 border-dashed dark:border-gray-800 rounded-lg flex items-center justify-center dark:border-gray-800">
             <div className="text-center text-gray-400 grid gap-1">
@@ -33,44 +28,8 @@ export function ChatPage() {
         </div>
         <div className="flex-1 flex flex-col justify-end p-4">
           <div className="grid gap-4">
-            <div className="flex items-start gap-4">
-              <div className="rounded-lg bg-gray-100 dark:bg-gray-800 p-4 flex items-center gap-2">
-                <img
-                  alt="Avatar"
-                  className="rounded-full"
-                  height={40}
-                  src="/placeholder.svg"
-                  style={{
-                    aspectRatio: "40/40",
-                    objectFit: "cover",
-                  }}
-                  width={40}
-                />
-                <div className="text-sm leading-none">
-                  <p className="font-semibold">Alice Johnson</p>
-                  <p>Hey, this is looking great!</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-end items-start gap-4">
-              <div className="rounded-lg bg-gray-100 dark:bg-gray-800 p-4 flex items-center gap-2">
-                <img
-                  alt="Avatar"
-                  className="rounded-full"
-                  height={40}
-                  src="/placeholder.svg"
-                  style={{
-                    aspectRatio: "40/40",
-                    objectFit: "cover",
-                  }}
-                  width={40}
-                />
-                <div className="text-sm leading-none">
-                  <p className="font-semibold">Bob Smith</p>
-                  <p>Thanks! I'm just getting started.</p>
-                </div>
-              </div>
-            </div>
+            <ChatBubble name="Me" message="Kvo staa manqk?"></ChatBubble>
+            <ChatBubble name="AI Bot" message="Biva brat, bachkame"></ChatBubble>
           </div>
         </div>
         <div className="border-t flex items-center p-4">
