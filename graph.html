@@ -27,14 +27,14 @@
           .linkTarget("target")
           .linkDirectionalArrowLength(4)
           .linkDirectionalArrowRelPos(1)
-          .nodeThreeObject((node) => {
-            const nodeEl = document.createElement("div");
+          .nodeThreeObject(node => {
+            const nodeEl = document.createElement('div');
             nodeEl.textContent = node.id;
             nodeEl.style.color = node.color;
-            nodeEl.className = "node-label";
+            nodeEl.className = 'node-label';
             return new CSS2DObject(nodeEl);
-          })
-          .nodeThreeObjectExtend(true);
-      });
+        })
+        .nodeThreeObjectExtend(true);
+        });
   </script>
 </body>
