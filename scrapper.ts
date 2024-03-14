@@ -28,7 +28,11 @@ const toGraphData = (contents: ArticleInfo[]) => {
         return;
       }
       articleNums.set(article_num, articleNums.get(article_num)! + 3);
-      graphData.links.push({ source: content.article_num, target: article_num, value: 1 });
+      graphData.links.push({
+        source: content.article_num,
+        target: article_num,
+        value: 1,
+      });
     });
   }
 
@@ -70,8 +74,9 @@ const toGraphData = (contents: ArticleInfo[]) => {
 
     const articleInfo = {
       title,
+      text: `Чл. ${article_num}. ` + content,
       article_num: article_num.trim(),
-      text: rest_text.join(".").trim(),
+      // text: rest_text.join(".").trim(),
     };
 
     res.push(articleInfo);

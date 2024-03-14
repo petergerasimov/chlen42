@@ -15,7 +15,7 @@ def find_text_and_subsections(document: str, pattern: re.Pattern):
     text = None
     last_end = 0
     for match in pattern.finditer(document):
-        print(pattern, match)
+        # print(pattern, match)
         if text is None:
             text = document[last_end:match.start()]
         else:
@@ -47,10 +47,7 @@ def parse_legal_document(document: str) -> List[Dict[str, Any]]:
                 (text, letters) = find_text_and_subsections(point["full_text"], pattern_letter)
                 point["text"] = text
                 point["letters"] = letters
-    return {
-        "title": title,
-        "articles": articles
-    }
+    return articles
 
 
 
