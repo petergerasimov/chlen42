@@ -1,0 +1,40 @@
+<head>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+
+  <script src="//unpkg.com/3d-force-graph"></script>
+  <script src="//unpkg.com/force-graph"></script>
+  <!--<script src="../../dist/force-graph.js"></script>-->
+</head>
+
+<body>
+  <div id="graph"></div>
+
+  <script>
+    fetch("./graph.json")
+      .then((res) => res.json())
+      .then((data) => {
+        const Graph = ForceGraph()(document.getElementById("graph"))
+          .graphData(data)
+          .nodeId("id")
+          .nodeVal("size")
+          .nodeLabel("id")
+          .nodeAutoColorBy("group")
+          .linkSource("source")
+          .linkTarget("target")
+          .linkDirectionalArrowLength(4)
+          .linkDirectionalArrowRelPos(1)
+          .nodeThreeObject((node) => {
+            const nodeEl = document.createElement("div");
+            nodeEl.textContent = node.id;
+            nodeEl.style.color = node.color;
+            nodeEl.className = "node-label";
+            return new CSS2DObject(nodeEl);
+          })
+          .nodeThreeObjectExtend(true);
+      });
+  </script>
+</body>
