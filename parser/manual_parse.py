@@ -31,6 +31,20 @@ def find_text_and_subsections(document: str, pattern: re.Pattern):
 
     return (text, matches_list)
 
+def get_meta(text):
+    dv_pattern = re.compile(r"^\(([^()]*ДВ[^()]*)\)")
+    dv_match = dv_pattern.search(text)
+    if dv_match:
+        return {
+            "dv": dv_match.group(1),
+            "text": text.replace(dv_match.group(0), "").strip()
+        }
+    else:
+        return {
+            "dv": None,
+            "text": text
+        }
+
 def manual_parse(document: str) -> List[Dict[str, Any]]:
     pattern_article = re.compile(r"Чл\. (\d+[а-я]?)[.](.*?)\s*(?=Чл\. |\Z)", re.DOTALL)
     pattern_alinea = re.compile(r"\((\d+)\)\s*(.*?)\s*(?=\(\d+\)\s|\Z)", re.DOTALL)
@@ -43,16 +57,19 @@ def manual_parse(document: str) -> List[Dict[str, Any]]:
         (text, alineas) = find_text_and_subsections(article["full_text"], pattern_alinea)
         article["text"] = text
         article["alineas"] = alineas
+        article["meta"] = get_meta(text)
         del article["full_text"]
         for alinea in alineas:
             (text, points) = find_text_and_subsections(alinea["full_text"], pattern_point)
             alinea["text"] = text
             alinea["points"] = points
+            alinea["meta"] = get_meta(text)
             del alinea["full_text"]
             for point in points:
                 (text, letters) = find_text_and_subsections(point["full_text"], pattern_letter)
                 point["text"] = text
                 point["letters"] = letters
+                point["meta"] = get_meta(text)
                 del point["full_text"]
     return articles
 
