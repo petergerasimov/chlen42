@@ -8,8 +8,8 @@ interface ArticleInfo {
 }
 
 interface GraphData {
-  nodes: { id: string; group: number; size: number }[];
-  links: { source: string; target: string; value: number }[];
+  nodes: { id: string; group: number; size: number; isVisible: boolean }[];
+  links: { source: string; target: string; value: number; isVisible: boolean }[];
 }
 
 const toGraphData = (contents: ArticleInfo[]) => {
@@ -17,7 +17,7 @@ const toGraphData = (contents: ArticleInfo[]) => {
   const articleNums = new Map<string, number>();
 
   for (const content of contents) {
-    graphData.nodes.push({ id: content.article_num, group: 1, size: 1 });
+    graphData.nodes.push({ id: content.article_num, group: 1, size: 1, isVisible: true });
     articleNums.set(content.article_num, 1);
   }
 
@@ -32,6 +32,7 @@ const toGraphData = (contents: ArticleInfo[]) => {
         source: content.article_num,
         target: article_num,
         value: 1,
+        isVisible: true,
       });
     });
   }
