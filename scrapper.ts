@@ -74,7 +74,7 @@ const toGraphData = (contents: ArticleInfo[]) => {
 
     const articleInfo = {
       title,
-      text: `Чл. ${article_num}. ` + content,
+      text: `Чл. ${article_num.trim()}. ` + rest_text.join(".").trim(),
       article_num: article_num.trim(),
       // text: rest_text.join(".").trim(),
     };
