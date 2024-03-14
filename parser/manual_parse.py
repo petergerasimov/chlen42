@@ -71,6 +71,10 @@ def manual_parse(document: str) -> List[Dict[str, Any]]:
                 point["letters"] = letters
                 point["meta"] = get_meta(text)
                 del point["full_text"]
+                for letter in letters:
+                    letter["meta"] = get_meta(letter["full_text"])
+                    letter["text"] = letter["full_text"]
+                    del letter["full_text"]
     return articles
 
 # with open("../prompting/test/testcase.txt", "r") as f:
