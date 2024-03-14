@@ -65,7 +65,7 @@ Numbering: а), б), в), г), д)
 
 The input will be a legal act in Bulgarian, it will strictly follow this hierarchical order.
 Your reply needs to be a JSON document that describes the document.
-Imporant: If Чл. N. is immediately followed by (1), then its text will be empty ("").
+Imporant: If Чл. N. is immediately followed by (1), then its text will be empty (""). You should NEVER output text like this: "text": "(1)... <-- WRONG, if you do this i will cry
 The input will always contain only one Член and the output will be an array of a single element.
 
 Here are some examples:

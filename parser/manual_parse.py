@@ -52,8 +52,7 @@ def manual_parse(document: str) -> List[Dict[str, Any]]:
             for point in points:
                 (text, letters) = find_text_and_subsections(point["full_text"], pattern_letter)
                 point["text"] = text
-                if len(letters) != 0:
-                   point["letters"] = letters
+                point["letters"] = letters
                 del point["full_text"]
     return articles
 

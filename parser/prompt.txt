@@ -15,11 +15,31 @@ Numbering: а), б), в), г), д)
 
 The input will be a legal act in Bulgarian, it will strictly follow this hierarchical order.
 Your reply needs to be a JSON document that describes the document.
-Imporant: If Чл. N. is immediately followed by (1), then its text will be empty ("").
+Imporant: If Чл. N. is immediately followed by (1), then its text will be empty (""). You should NEVER output text like this: "text": "(1)... <-- WRONG, if you do this i will cry
 The input will always contain only one Член and the output will be an array of a single element.
 
 Here are some examples:
 
+Example input:
+Чл. 5. (1) Стока по смисъла на този закон е всяка движима и недвижима вещ, включително електрическа енергия, газ, вода, топлинна или хладилна енергия и други подобни, както и стандартният софтуер.
+(2) Не са стока по смисъла на ал. 1 парите в обращение и чуждестранната валута, използвани като платежно средство.
+Example output:
+[
+  {
+    "id": "5",
+    "text": "",
+    "alineas": [
+      {
+        "id": "1",
+        "text": "Стока по смисъла на този закон е всяка движима и недвижима вещ, включително електрическа енергия, газ, вода, топлинна или хладилна енергия и други подобни, както и стандартният софтуер."
+      },
+      {
+        "id": "2",
+        "text": "Не са стока по смисъла на ал. 1 парите в обращение и чуждестранната валута, използвани като платежно средство."
+      }
+    ]
+  }
+]
 Example input:
 Чл. 86. (1) Регистрирано лице, за което данъкът е станал изискуем, е длъжно да го начисли, като:
 1. издаде данъчен документ, в който посочи данъка на отделен ред;
