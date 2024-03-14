@@ -10,28 +10,30 @@ location = "us-central1"
 vertexai.init(project=project_id, location=location)
 model = GenerativeModel("gemini-1.0-pro")
 
-# read input file
-with open("../prompting/test/testcase.txt", "r") as f:
-    input_text = f.read()
+# # read input file
+# with open("../prompting/test/testcase.txt", "r") as f:
+#     input_text = f.read()
 
-prompt = get_prompt(input_text)
+def llm_parse(input):
+  prompt = get_prompt(input)
 
-with open("prompt.txt", "w") as f:
-    f.write(prompt)
+  with open("prompt.txt", "w") as f:
+      f.write(prompt)
 
-responses = model.generate_content(
-  prompt,
-  stream=True,
-  generation_config={
-    "max_output_tokens": 8096,
-    "temperature": 0,
-    "top_p": 1
-  }
-)
-for chunk in responses:
-    try:
-      print(chunk.text, end="")
-    except Exception as e:
-      print(chunk)
-      print(e)
-
+  responses = model.generate_content(
+    prompt,
+    stream=True,
+    generation_config={
+      "max_output_tokens": 8096,
+      "temperature": 0,
+      "top_p": 1
+    }
+  )
+  result = ""
+  for chunk in responses:
+      try:
+        result += chunk.text
+      except Exception as e:
+        print(e)
+        break
+  return result
