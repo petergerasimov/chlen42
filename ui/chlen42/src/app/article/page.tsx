@@ -17,15 +17,17 @@ export default function ArticlePage() {
   const [article, setArticle] = useState<Article>();
 
   const handleMessage = (msg: MessageEvent) => {
-    console.log("MESSAGE", msg.data);
-    if (msg.origin !== window.location.origin) return;
-    if (typeof msg.data !== "object" || msg.data.type !== "article") return;
-
+    console.log(msg);
+    if (msg.origin !== "http://localhost:3000") {
+      return;
+    }
+    if (typeof msg.data !== "object" || msg.data.type !== "article") {
+      return;
+    }
     setArticle(msg.data.article);
   };
 
   window.addEventListener("message", handleMessage);
-
   const getDataNodeChildren = (data: DataNode): DataNode[] => {
     if (Object.keys(data).includes("alineas")) {
       return (data as Article).alineas;
@@ -38,7 +40,10 @@ export default function ArticlePage() {
     return [];
   };
 
-  const constructDataNodeComponent = (data: DataNode, depth: idFormatterKey = 0) => {
+  const constructDataNodeComponent = (
+    data: DataNode,
+    depth: idFormatterKey = 0
+  ) => {
     const idFormatter = idFormatters[depth];
     const children = getDataNodeChildren(data);
     //console.log("TONI TEST", data, data.meta);
@@ -46,7 +51,9 @@ export default function ArticlePage() {
     return (
       <div key={data.id} className="ml-4">
         <div className="relative">
-          {data.meta.dv && <FaClockRotateLeft className="text-sm text-black/50 peer absolute -left-5 top-1" />}
+          {data.meta.dv && (
+            <FaClockRotateLeft className="text-sm text-black/50 peer absolute -left-5 top-1" />
+          )}
           <b>{idFormatter(data.id)} </b>
           {data.meta.dv && (
             <div className="absolute hidden peer-hover:block left-0 rounded p-2 bg-zinc-600 text-white">
@@ -56,7 +63,10 @@ export default function ArticlePage() {
           <span>{data.meta.text}</span>
         </div>
         {children.map((child) => {
-          return constructDataNodeComponent(child, (depth + 1) as idFormatterKey);
+          return constructDataNodeComponent(
+            child,
+            (depth + 1) as idFormatterKey
+          );
         })}
       </div>
     );
@@ -64,6 +74,8 @@ export default function ArticlePage() {
 
   // TODO make recursive and style by depth
   return (
-    <div className="bg-white text-black">{article ? constructDataNodeComponent(article) : <div>Loading...</div>}</div>
+    <div className="bg-white text-black">
+      {article ? constructDataNodeComponent(article) : <div>Loading...</div>}
+    </div>
   );
 }
