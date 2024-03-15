@@ -39,6 +39,9 @@ def process_children(item, level=0):
     # print(child['linked'])
     process_children(child, level + 1)
 
+with open(f"./similar.json") as f:
+   similar = json.load(f)
+
 for chlens in data:
   chlen = chlens[0]
   article_num = chlen['id']
@@ -47,12 +50,25 @@ for chlens in data:
       terms = json.load(f)
       # print(terms)
       defined_terms += [(t.lower(), article_num) for t in terms['defined_terms']]
-      used_terms += [t.lower() for t in terms['used_terms']]
   else:
     print(f"chlen {article_num} not parsed yet")
 
+for k, v in defined_terms.copy():
+  # print(k, v)
+  if k in similar:
+    for s in similar[k]:
+      defined_terms.append((s, v))
+  else:
+    print(f"{k} not found in similar")
+
+used_terms = [t.lower() for t in terms['used_terms']]
+
+# for k, v in defined_terms.copy():
+#   print(k, v)
+
 # for k, v in dict(defined_terms).items():
 #   print(k)
+
 for chlen in data:
   process_children(chlen[0])
 
