@@ -1,13 +1,18 @@
 import React from "react";
 
 type ChatBubbleProps = {
-    name: string;
-    message: string;
-}
+  name: string;
+  message: string;
+  left?: boolean;
+};
 
 function ChatBubble(props: ChatBubbleProps) {
   return (
-    <div className="flex justify-end items-start gap-4">
+    <div
+      className={`flex justify-${
+        props.left ? "start" : "end"
+      } items-start gap-4`}
+    >
       <div className="rounded-lg bg-gray-100 dark:bg-gray-800 p-4 flex items-center gap-2">
         <img
           alt="Avatar"
