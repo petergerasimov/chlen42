@@ -9,8 +9,8 @@ interface ArticleInfo {
 }
 
 interface FlowGraphData {
-  nodes: { id: string; data: { label: string }; position: { x: number; y: number } }[];
-  links: { id: string; source: string; target: string }[];
+  nodes: { id: string; index: number; data: { label: string }; position: { x: number; y: number } }[];
+  links: { id: string; source: number; target: number }[];
 }
 
 interface GraphData {
@@ -55,12 +55,28 @@ const toGraphData = (contents: ArticleInfo[]) => {
 const toFlowGraphData = (contents: ArticleInfo[]) => {
   const graphData: FlowGraphData = { nodes: [], links: [] };
   const articleNums = new Map<string, number>();
+  const articleIndexes = new Map<string, number>();
+  const createdEdges: { [key: string]: boolean } = {};
 
+  let x = 0,
+    y = 0;
+  let i = 0;
   for (const content of contents) {
-    const x = randomInt(0, 500);
-    const y = randomInt(0, 500);
-    graphData.nodes.push({ id: content.article_num, data: { label: content.article_num }, position: { x, y } });
+    graphData.nodes.push({
+      id: content.article_num,
+      index: i,
+      data: { label: content.article_num },
+      position: { x, y },
+    });
     articleNums.set(content.article_num, 5);
+    articleIndexes.set(content.article_num, i);
+    i++;
+
+    x += 50;
+    if (x > 500) {
+      x = 0;
+      y += 50;
+    }
   }
 
   for (const content of contents) {
@@ -69,11 +85,16 @@ const toFlowGraphData = (contents: ArticleInfo[]) => {
       if (!articleNums.has(article_num)) {
         return;
       }
+      if (createdEdges[`e${content.article_num}-${article_num}`]) {
+        return;
+      }
+      const id = `e${content.article_num}-${article_num}`;
+      createdEdges[id] = true;
       articleNums.set(article_num, articleNums.get(article_num)! + 1);
       graphData.links.push({
-        source: content.article_num,
-        target: article_num,
-        id: `e${content.article_num}-${article_num}`,
+        source: articleIndexes.get(content.article_num) || 0,
+        target: articleIndexes.get(article_num) || 0,
+        id,
       });
     });
   }
