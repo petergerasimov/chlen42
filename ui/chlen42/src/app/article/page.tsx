@@ -17,15 +17,14 @@ export default function ArticlePage() {
   const [article, setArticle] = useState<Article>();
 
   const handleMessage = (msg: MessageEvent) => {
-    setArticle(msg.data);
+    console.log("MESSAGE", msg.data);
+    if (msg.origin !== window.location.origin) return;
+    if (typeof msg.data !== "object" || msg.data.type !== "article") return;
+
+    setArticle(msg.data.article);
   };
 
-  useEffect(() => {
-    window.addEventListener("message", handleMessage);
-    return () => {
-      window.removeEventListener("message", handleMessage);
-    };
-  }, []);
+  window.addEventListener("message", handleMessage);
 
   const getDataNodeChildren = (data: DataNode): DataNode[] => {
     if (Object.keys(data).includes("alineas")) {

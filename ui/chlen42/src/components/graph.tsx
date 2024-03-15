@@ -57,7 +57,7 @@ export default function Graph({ graphData }: { graphData: any }) {
 
     div.appendChild(iframe);
     iframe.onload = () => {
-      iframe.contentWindow.postMessage(article, "*");
+      iframe.contentWindow.postMessage({ type: "article", article }, "*");
 
       iframe.contentWindow.onresize = (ev) => {
         const width = iframe.contentWindow.innerWidth;
