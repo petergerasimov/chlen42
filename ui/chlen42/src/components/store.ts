@@ -1,3 +1,5 @@
+"use client";
+
 import { create } from "zustand";
 import {
   Connection,
@@ -13,17 +15,30 @@ import {
   applyEdgeChanges,
 } from "reactflow";
 
-import { forceSimulation, forceManyBody, forceLink, forceX, forceY } from "d3-force";
+import {
+  forceSimulation,
+  forceManyBody,
+  forceLink,
+  forceX,
+  forceY,
+} from "d3-force";
 import GraphData from "../../public/flow-graph.json";
 
 const simulation = forceSimulation(GraphData.nodes)
   .force("charge", forceManyBody().strength(-120))
-  .force("link", forceLink(GraphData.links).distance(100).strength(1).iterations(15))
+  .force(
+    "link",
+    forceLink(GraphData.links).distance(500).strength(0.2).iterations(15)
+  )
   .force("x", forceX())
   .force("y", forceY())
   .stop();
 
-simulation.tick(Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())));
+simulation.tick(
+  Math.ceil(
+    Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())
+  )
+);
 
 for (const node of GraphData.nodes) {
   node.type = "custom-node";
@@ -116,14 +131,21 @@ const useStore = create<RFState>((set, get) => ({
     //console.log("TEST");
     //console.log(selectedNodes);
     const neightbours = get()
-      .edges.filter((edge) => selectedNodes[edge.source] || selectedNodes[edge.target])
+      .edges.filter(
+        (edge) => selectedNodes[edge.source] || selectedNodes[edge.target]
+      )
       .map((edge) => (edge.source === nodeId ? edge.target : edge.source));
 
     set({
       nodes: get().nodes.map((node) => {
         if (node.id === nodeId) {
           if (selectedNodes[node.id]) {
-            return { ...node, type, dragHandle: ".drag-handle", data: { ...node.data, article } };
+            return {
+              ...node,
+              type,
+              dragHandle: ".drag-handle",
+              data: { ...node.data, article },
+            };
           }
           return { ...node, type: "custom-node" };
         } else if (selectedNodes[node.id]) {
