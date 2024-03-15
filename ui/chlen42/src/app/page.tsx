@@ -1,5 +1,6 @@
 import Graph from "@/components/graph";
 import GraphData from "../../public/flow-graph.json";
+import { ChatBox } from "@/components/chat-box";
 
 export default function Home() {
   return (
@@ -12,6 +13,9 @@ export default function Home() {
           <input type="radio" name="dimensions" value="2" />
           <input type="radio" name="dimensions" value="3" /> */}
         </div>
+      </div>
+      <div className="fixed top-0 h-2/4 right-0 p-4 bg-gray-200 shadow-md max-w-md">
+        <ChatBox />
       </div>
     </main>
   );

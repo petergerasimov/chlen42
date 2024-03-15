@@ -1,4 +1,6 @@
 node_modules
+terms-output
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -160,5 +162,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-/trt-llm-rag-windows/dataset
-/trt-llm-rag-windows/storage-default
+/server/dataset
+/server/storage-default

@@ -9,7 +9,7 @@ const dataObj: {
 
 for (const chunk of dataObj) {
   fs.writeFileSync(
-    `./trt-llm-rag-windows/dataset/${chunk.article_num}.txt`,
+    `./server/dataset/${chunk.article_num}.txt`,
     `${chunk.title}\n${chunk.text}`
   );
 }
