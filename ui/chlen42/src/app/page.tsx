@@ -1,5 +1,5 @@
 import Graph from "@/components/graph";
-import GraphData from "../../public/graph.json";
+import GraphData from "../../public/flow-graph.json";
 
 export default function Home() {
   return (

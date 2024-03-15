@@ -3,7 +3,8 @@ import { useState, useRef, useLayoutEffect, useEffect, use } from "react";
 import { ForceGraph3D } from "react-force-graph";
 import LawData from "../../public/parsed.json";
 import { CSS3DObject, CSS3DRenderer } from "three/examples/jsm/renderers/CSS3DRenderer";
-
+import ReactFlow from "reactflow";
+import "reactflow/dist/style.css";
 import * as THREE from "three";
 
 interface NodesMap {
@@ -57,7 +58,7 @@ export default function Graph({ graphData }: { graphData: any }) {
 
     div.appendChild(iframe);
     iframe.onload = () => {
-      iframe.contentWindow.postMessage(article, "*");
+      iframe.contentWindow.postMessage({ type: "article", article }, "http://localhost:3000");
 
       iframe.contentWindow.onresize = (ev) => {
         const width = iframe.contentWindow.innerWidth;
@@ -91,6 +92,7 @@ export default function Graph({ graphData }: { graphData: any }) {
   };
 
   const onNodeClick = (node) => {
+    console.log(fgRef);
     if (selectedNodes[node.id]) {
       delete selectedNodes[node.id];
     } else {
@@ -121,7 +123,8 @@ export default function Graph({ graphData }: { graphData: any }) {
         link.isVisible = true;
         // link.color = 0xff0000;
         // link.__lineObj.material.color = new THREE.Color(0xff0000);
-        // console.log(link.__lineObj);
+        // link.linkDirectionalParticles = 1;
+        // console.log(link);
       } else {
         link.isVisible = false;
         //link.opacity = 0.5;
@@ -142,7 +145,7 @@ export default function Graph({ graphData }: { graphData: any }) {
     }
 
     setSelectedNodes(selectedNodes);
-    setGData({ ...graphData });
+    setGData((graphData) => ({ ...graphData }));
     //fgRef.current.refresh();
   };
 
@@ -208,41 +211,7 @@ export default function Graph({ graphData }: { graphData: any }) {
 
   return (
     <div className="w-full h-screen" ref={containerRef}>
-      <ForceGraph3D
-        ref={fgRef}
-        numDimensions={dims}
-        backgroundColor="#f1f5f9"
-        graphData={gData}
-        width={width}
-        height={height}
-        nodeId={"id"}
-        nodeVal={"size"}
-        nodeLabel={"id"}
-        nodeAutoColorBy={"group"}
-        nodeVisibility={"isVisible"}
-        linkSource={"source"}
-        linkTarget={"target"}
-        linkDirectionalArrowLength={20}
-        linkDirectionalArrowRelPos={0.75}
-        //linkOpacity={"opacity"}
-        linkWidth={3}
-        linkVisibility={"isVisible"}
-        //dagMode={"radialin"}
-        //onDagError={(error) => console.error(error)}
-        onNodeClick={onNodeClick}
-        extraRenderers={extraRenderers}
-        nodeThreeObject={nodeToHTML}
-        //nodeThreeObjectExtend={true}
-        onNodeDragEnd={(node) => {
-          node.fx = node.x;
-          node.fy = node.y;
-          node.fz = node.z;
-        }}
-        // d3AlphaDecay={0.05}
-        // d3VelocityDecay={0.4}
-        // cooldownTicks={100}
-        // onEngineStop={fixNodes}
-      />
+      <ReactFlow nodes={gData.nodes} edges={gData.links} fitView />
     </div>
   );
 }

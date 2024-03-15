@@ -1,3 +1,4 @@
+import { randomInt } from "crypto";
 import fs from "fs";
 import puppeteer from "puppeteer";
 
@@ -5,6 +6,11 @@ interface ArticleInfo {
   title: string;
   article_num: string;
   text: string;
+}
+
+interface FlowGraphData {
+  nodes: { id: string; data: { label: string }; position: { x: number; y: number } }[];
+  links: { id: string; source: string; target: string }[];
 }
 
 interface GraphData {
@@ -42,6 +48,41 @@ const toGraphData = (contents: ArticleInfo[]) => {
       node.size = articleNums.get(node.id)!;
     }
   }
+
+  return graphData;
+};
+
+const toFlowGraphData = (contents: ArticleInfo[]) => {
+  const graphData: FlowGraphData = { nodes: [], links: [] };
+  const articleNums = new Map<string, number>();
+
+  for (const content of contents) {
+    const x = randomInt(0, 500);
+    const y = randomInt(0, 500);
+    graphData.nodes.push({ id: content.article_num, data: { label: content.article_num }, position: { x, y } });
+    articleNums.set(content.article_num, 5);
+  }
+
+  for (const content of contents) {
+    Array.from(content.text.matchAll(/чл. (\d+[а-я]?)/g)).forEach((match) => {
+      const article_num = match[1];
+      if (!articleNums.has(article_num)) {
+        return;
+      }
+      articleNums.set(article_num, articleNums.get(article_num)! + 1);
+      graphData.links.push({
+        source: content.article_num,
+        target: article_num,
+        id: `e${content.article_num}-${article_num}`,
+      });
+    });
+  }
+
+  // for (const node of graphData.nodes) {
+  //   if (articleNums.get(node.id)) {
+  //     node.size = articleNums.get(node.id)!;
+  //   }
+  // }
 
   return graphData;
 };
@@ -86,8 +127,8 @@ const toGraphData = (contents: ArticleInfo[]) => {
   //dump json to file
   fs.writeFileSync("data.json", JSON.stringify(res, null, 2));
 
-  const graphData = toGraphData(res);
-  fs.writeFileSync("graph.json", JSON.stringify(graphData, null, 2));
+  const graphData = toFlowGraphData(res);
+  fs.writeFileSync("./ui/chlen42/public/flow-graph.json", JSON.stringify(graphData, null, 2));
 
   await browser.close();
 })();
