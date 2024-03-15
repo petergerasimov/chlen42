@@ -3,103 +3,103 @@
     {
       "id": "1",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "2",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "3",
       "group": 1,
-      "size": 16,
+      "size": 10,
       "isVisible": true
     },
     {
       "id": "4",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "5",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "6",
       "group": 1,
-      "size": 61,
+      "size": 25,
       "isVisible": true
     },
     {
       "id": "7",
       "group": 1,
-      "size": 28,
+      "size": 14,
       "isVisible": true
     },
     {
       "id": "8",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "9",
       "group": 1,
-      "size": 25,
+      "size": 13,
       "isVisible": true
     },
     {
       "id": "10",
       "group": 1,
-      "size": 28,
+      "size": 14,
       "isVisible": true
     },
     {
       "id": "10а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "10б",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "11",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "12",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "13",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "14",
       "group": 1,
-      "size": 22,
+      "size": 12,
       "isVisible": true
     },
     {
       "id": "14а",
       "group": 1,
-      "size": 52,
+      "size": 22,
       "isVisible": true
     },
     {
@@ -111,19 +111,19 @@
     {
       "id": "15а",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "16",
       "group": 1,
-      "size": 34,
+      "size": 16,
       "isVisible": true
     },
     {
       "id": "17",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
@@ -135,31 +135,31 @@
     {
       "id": "19",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "20",
       "group": 1,
-      "size": 28,
+      "size": 14,
       "isVisible": true
     },
     {
       "id": "20а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "20б",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "21",
       "group": 1,
-      "size": 31,
+      "size": 15,
       "isVisible": true
     },
     {
@@ -171,73 +171,73 @@
     {
       "id": "23",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "24",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "25",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "26",
       "group": 1,
-      "size": 31,
+      "size": 15,
       "isVisible": true
     },
     {
       "id": "27",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "28",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "28а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "29",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "30",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "31",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "32",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "33",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
@@ -249,37 +249,37 @@
     {
       "id": "35",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "35а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "36",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "36а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "36б",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "37",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
@@ -291,13 +291,13 @@
     {
       "id": "39",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "40",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
@@ -309,109 +309,109 @@
     {
       "id": "42",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "43",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "44",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "45",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "46",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "47",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "48",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "49",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "50",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "51",
       "group": 1,
-      "size": 16,
+      "size": 10,
       "isVisible": true
     },
     {
       "id": "52",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "53",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "54",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "55",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "56",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "57",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "57а",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "57б",
       "group": 1,
-      "size": 34,
+      "size": 16,
       "isVisible": true
     },
     {
@@ -423,43 +423,43 @@
     {
       "id": "57г",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "57д",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "57е",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "57ж",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "57з",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "58",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "59",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
@@ -471,37 +471,37 @@
     {
       "id": "61",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "62",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "63",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "64",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "64а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "65",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
@@ -513,85 +513,85 @@
     {
       "id": "66",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "66а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "66б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "67",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "68",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "69",
       "group": 1,
-      "size": 31,
+      "size": 15,
       "isVisible": true
     },
     {
       "id": "70",
       "group": 1,
-      "size": 31,
+      "size": 15,
       "isVisible": true
     },
     {
       "id": "71",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "71а",
       "group": 1,
-      "size": 22,
+      "size": 12,
       "isVisible": true
     },
     {
       "id": "71б",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "72",
       "group": 1,
-      "size": 67,
+      "size": 27,
       "isVisible": true
     },
     {
       "id": "73",
       "group": 1,
-      "size": 61,
+      "size": 25,
       "isVisible": true
     },
     {
       "id": "73а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "73б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
@@ -603,115 +603,115 @@
     {
       "id": "75",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "76",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "77",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "78",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "78а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "79",
       "group": 1,
-      "size": 25,
+      "size": 13,
       "isVisible": true
     },
     {
       "id": "79а",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "79б",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "79в",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "80",
       "group": 1,
-      "size": 16,
+      "size": 10,
       "isVisible": true
     },
     {
       "id": "81",
       "group": 1,
-      "size": 28,
+      "size": 14,
       "isVisible": true
     },
     {
       "id": "82",
       "group": 1,
-      "size": 34,
+      "size": 16,
       "isVisible": true
     },
     {
       "id": "83",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "84",
       "group": 1,
-      "size": 16,
+      "size": 10,
       "isVisible": true
     },
     {
       "id": "85",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "85а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "86",
       "group": 1,
-      "size": 16,
+      "size": 10,
       "isVisible": true
     },
     {
       "id": "87",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "88",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
@@ -723,7 +723,7 @@
     {
       "id": "90",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
@@ -735,19 +735,19 @@
     {
       "id": "92",
       "group": 1,
-      "size": 22,
+      "size": 12,
       "isVisible": true
     },
     {
       "id": "93",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "94",
       "group": 1,
-      "size": 31,
+      "size": 15,
       "isVisible": true
     },
     {
@@ -759,7 +759,7 @@
     {
       "id": "96",
       "group": 1,
-      "size": 94,
+      "size": 36,
       "isVisible": true
     },
     {
@@ -771,49 +771,49 @@
     {
       "id": "97а",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "97б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "97в",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "98",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "99",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "100",
       "group": 1,
-      "size": 79,
+      "size": 31,
       "isVisible": true
     },
     {
       "id": "101",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "102",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
@@ -825,55 +825,55 @@
     {
       "id": "104",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "105",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "106",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "107",
       "group": 1,
-      "size": 16,
+      "size": 10,
       "isVisible": true
     },
     {
       "id": "108",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "109",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "110",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "111",
       "group": 1,
-      "size": 25,
+      "size": 13,
       "isVisible": true
     },
     {
       "id": "111а",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
@@ -891,7 +891,7 @@
     {
       "id": "114",
       "group": 1,
-      "size": 31,
+      "size": 15,
       "isVisible": true
     },
     {
@@ -903,55 +903,55 @@
     {
       "id": "116",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "117",
       "group": 1,
-      "size": 31,
+      "size": 15,
       "isVisible": true
     },
     {
       "id": "117а",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "118",
       "group": 1,
-      "size": 58,
+      "size": 24,
       "isVisible": true
     },
     {
       "id": "119",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "120",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "121",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "122",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "123",
       "group": 1,
-      "size": 37,
+      "size": 17,
       "isVisible": true
     },
     {
@@ -963,37 +963,37 @@
     {
       "id": "124",
       "group": 1,
-      "size": 52,
+      "size": 22,
       "isVisible": true
     },
     {
       "id": "125",
       "group": 1,
-      "size": 61,
+      "size": 25,
       "isVisible": true
     },
     {
       "id": "126",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "126а",
       "group": 1,
-      "size": 34,
+      "size": 16,
       "isVisible": true
     },
     {
       "id": "126б",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "126в",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
@@ -1005,193 +1005,193 @@
     {
       "id": "128",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "129",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "130",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "131",
       "group": 1,
-      "size": 16,
+      "size": 10,
       "isVisible": true
     },
     {
       "id": "131а",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "131б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "131в",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "131г",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "132",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "132а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "133",
       "group": 1,
-      "size": 22,
+      "size": 12,
       "isVisible": true
     },
     {
       "id": "134",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "135",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "136",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "137",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "138",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "139",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "140",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "141",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "142",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "143",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "144",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "145",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "146",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "147",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "148",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "149",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "150",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "151",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "151а",
       "group": 1,
-      "size": 28,
+      "size": 14,
       "isVisible": true
     },
     {
       "id": "151б",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "151в",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
@@ -1203,25 +1203,25 @@
     {
       "id": "151д",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "152",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "153",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "154",
       "group": 1,
-      "size": 82,
+      "size": 32,
       "isVisible": true
     },
     {
@@ -1233,175 +1233,175 @@
     {
       "id": "156",
       "group": 1,
-      "size": 64,
+      "size": 26,
       "isVisible": true
     },
     {
       "id": "157",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "157а",
       "group": 1,
-      "size": 76,
+      "size": 30,
       "isVisible": true
     },
     {
       "id": "157б",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "158",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "159",
       "group": 1,
-      "size": 28,
+      "size": 14,
       "isVisible": true
     },
     {
       "id": "159а",
       "group": 1,
-      "size": 25,
+      "size": 13,
       "isVisible": true
     },
     {
       "id": "159б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "159в",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "159г",
       "group": 1,
-      "size": 16,
+      "size": 10,
       "isVisible": true
     },
     {
       "id": "159д",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "159е",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "159ж",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "159з",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "159и",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "160",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "160а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "161",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "162",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "163",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "163а",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "163б",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "163в",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "163г",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "163д",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "164",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "165",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "166",
       "group": 1,
-      "size": 34,
+      "size": 16,
       "isVisible": true
     },
     {
       "id": "167",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
@@ -1413,37 +1413,37 @@
     {
       "id": "167б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "168",
       "group": 1,
-      "size": 10,
+      "size": 8,
       "isVisible": true
     },
     {
       "id": "168а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "169",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "170",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "171",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
@@ -1461,37 +1461,37 @@
     {
       "id": "174",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "174а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "175",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "176",
       "group": 1,
-      "size": 19,
+      "size": 11,
       "isVisible": true
     },
     {
       "id": "176а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "176б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
@@ -1503,187 +1503,187 @@
     {
       "id": "177",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "178",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "179",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "180",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "180а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "180б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "180в",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "181",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "181а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "181б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "181в",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "181г",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "181д",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "181е",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "182",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "183",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "184",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "185",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "185а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "185б",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "186",
       "group": 1,
-      "size": 13,
+      "size": 9,
       "isVisible": true
     },
     {
       "id": "186а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "187",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "188",
       "group": 1,
-      "size": 4,
+      "size": 6,
       "isVisible": true
     },
     {
       "id": "189",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "190",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "191",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "191а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "192",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "192а",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     },
     {
       "id": "193",
       "group": 1,
-      "size": 1,
+      "size": 5,
       "isVisible": true
     }
   ],

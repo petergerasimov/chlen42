@@ -2,13 +2,22 @@
 import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { ForceGraph3D } from "react-force-graph";
 import LawData from "../../public/parsed.json";
-import { CSS2DObject, CSS2DRenderer } from "three/examples/jsm/renderers/CSS2DRenderer";
+import { CSS3DObject, CSS3DRenderer } from "three/examples/jsm/renderers/CSS3DRenderer";
+import * as THREE from "three";
+
+interface NodesMap {
+  [key: string]: {
+    isSelected: boolean;
+    draggableBox: THREE.Mesh;
+    iframe?: HTMLDivElement;
+  };
+}
 
 export default function Graph({ graphData }: { graphData: any }) {
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
   const [gData, setGData] = useState(graphData);
-  const [selectedNodes, setSelectedNodes] = useState<string[]>([]);
+  const [selectedNodes, setSelectedNodes] = useState<NodesMap>({});
   const containerRef = useRef<HTMLDivElement>(null);
   const fgRef = useRef();
 
@@ -18,45 +27,6 @@ export default function Graph({ graphData }: { graphData: any }) {
     setWidth(containerRef.current.offsetWidth);
     setHeight(containerRef.current.offsetHeight);
   }, []);
-
-  // useEffect(() => {
-  //   const fg = fgRef.current;
-
-  //   if (!fg) return;
-
-  //   // Deactivate existing forces
-  //   fg.d3Force("center", null);
-  //   fg.d3Force("charge", null);
-
-  //   // Add collision and bounding box forces
-  //   fg.d3Force("collide", d3.forceCollide(4));
-  //   fg.d3Force("box", () => {
-  //     const SQUARE_HALF_SIDE = N * 2;
-
-  //     nodes.forEach((node) => {
-  //       const x = node.x || 0,
-  //         y = node.y || 0;
-
-  //       // bounce on box walls
-  //       if (Math.abs(x) > SQUARE_HALF_SIDE) {
-  //         node.vx *= -1;
-  //       }
-  //       if (Math.abs(y) > SQUARE_HALF_SIDE) {
-  //         node.vy *= -1;
-  //       }
-  //     });
-  //   });
-
-  //   // Generate nodes
-  //   const N = 80;
-  //   const nodes = [...Array(N).keys()].map(() => ({
-  //     // Initial velocity in random direction
-  //     vx: Math.random() * 2 - 1,
-  //     vy: Math.random() * 2 - 1,
-  //   }));
-
-  //   setGData({ nodes, links: [] });
-  // }, []);
 
   const findArticle = (id: string) => {
     for (const topic of LawData as Topic[]) {
@@ -77,8 +47,19 @@ export default function Graph({ graphData }: { graphData: any }) {
       return;
     }
 
+    const div = document.createElement("div");
     const articleEl = document.createElement("div");
     articleEl.textContent = article.meta.text;
+    articleEl.style.backgroundColor = "white";
+    articleEl.style.color = "black";
+    articleEl.style.padding = "5px";
+    articleEl.style.border = "1px solid black";
+    articleEl.style.borderRadius = "5px";
+
+    const iframe = document.createElement("iframe");
+    iframe.style.backgroundColor = "white";
+    iframe.style.resize = "both";
+    iframe.id = "article_iframe";
 
     for (const alinea of article.alineas) {
       const alineaEl = document.createElement("div");
@@ -100,7 +81,26 @@ export default function Graph({ graphData }: { graphData: any }) {
       articleEl.appendChild(alineaEl);
     }
 
-    return articleEl;
+    iframe.srcdoc = articleEl.innerHTML;
+    //iframe.src = "https://www.google.com";
+    console.log(iframe.offsetHeight, iframe.offsetWidth);
+    div.appendChild(iframe);
+    iframe.onload = () => {
+      iframe.contentWindow.onresize = (ev) => {
+        const width = iframe.contentWindow.innerWidth;
+        const height = iframe.contentWindow.innerHeight;
+
+        const box = selectedNodes[id].draggableBox.geometry;
+        const boxWidth = box.parameters.width;
+        const boxHeight = box.parameters.height;
+
+        const scaleX = width / boxWidth;
+        const scaleY = height / boxHeight;
+
+        selectedNodes[id].draggableBox.scale.set(scaleX, scaleY, 1);
+      };
+    };
+    return div;
   };
 
   const resetNodes = () => {
@@ -118,7 +118,22 @@ export default function Graph({ graphData }: { graphData: any }) {
   };
 
   const onNodeClick = (node) => {
-    if (selectedNodes.includes(node.id)) {
+    if (selectedNodes[node.id]) {
+      delete selectedNodes[node.id];
+    } else {
+      const box = new THREE.BoxGeometry(300, 170, 1);
+      const boxMesh = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ color: 0x00ff00 }));
+      boxMesh.position.set(0, 10, 0);
+
+      selectedNodes[node.id] = {
+        isSelected: true,
+        draggableBox: boxMesh,
+      };
+    }
+
+    //selectedNodes[node.id] = !selectedNodes[node.id];
+    console.log(Object.keys(selectedNodes));
+    if (Object.keys(selectedNodes).length == 0) {
       resetNodes();
       return;
     }
@@ -126,11 +141,13 @@ export default function Graph({ graphData }: { graphData: any }) {
     const neighbors = new Set();
     neighbors.add(node.id);
 
-    setSelectedNodes([node.id, ...selectedNodes]);
     for (const link of graphData.links) {
       //console.log(link.source.id, node.id);
-      if (link.source.id === node.id) {
+      if (selectedNodes[link.source.id]) {
         neighbors.add(link.target.id);
+        link.isVisible = true;
+      } else if (selectedNodes[link.target.id]) {
+        neighbors.add(link.source.id);
         link.isVisible = true;
       } else {
         link.isVisible = false;
@@ -138,34 +155,50 @@ export default function Graph({ graphData }: { graphData: any }) {
     }
 
     for (const n of graphData.nodes) {
-      if (!neighbors.has(n.id)) {
-        n.isVisible = false;
-      } else {
+      if (selectedNodes[n.id] || neighbors.has(n.id)) {
         n.isVisible = true;
         n.color = 0xff0000;
+      } else {
+        n.isVisible = false;
       }
     }
 
+    setSelectedNodes(selectedNodes);
     setGData({ ...graphData });
   };
 
   const nodeToHTML = (node) => {
     let elem;
-    if (selectedNodes.includes(node.id)) {
-      elem = constructArticleComponents(node.id);
+    if (selectedNodes[node.id]) {
+      if (selectedNodes[node.id].iframe) {
+        elem = selectedNodes[node.id].iframe;
+      } else {
+        elem = constructArticleComponents(node.id);
+        selectedNodes[node.id].iframe = elem;
+      }
       console.log("CUSTOM ELEME", elem);
     } else {
-      console.log(node.id);
-      elem = document.createElement("div");
-      elem.textContent = node.id;
-      elem.style.color = node.color;
-      elem.className = "node-label";
+      //create three js sphere
+      const geometry = new THREE.SphereGeometry(node.size, 10, 10);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0xffff00,
+      });
+      return new THREE.Mesh(geometry, material);
     }
 
-    return new CSS2DObject(elem);
+    // console.log(elem?.offsetWidth, elem?.offsetHeight);
+    // const box = new THREE.BoxGeometry(300, 170, 1);
+    // const boxMesh = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ color: 0x00ff00 }));
+    // boxMesh.position.set(0, 10, 0);
+    // boxMesh.geo
+
+    const group = new THREE.Object3D();
+    group.add(selectedNodes[node.id].draggableBox);
+    group.add(new CSS3DObject(elem));
+    return group;
   };
 
-  const extraRenderers = [new CSS2DRenderer()];
+  const extraRenderers = [new CSS3DRenderer()];
 
   return (
     <div className="w-full h-full" ref={containerRef}>
@@ -183,15 +216,17 @@ export default function Graph({ graphData }: { graphData: any }) {
         nodeOpacity={1}
         linkSource={"source"}
         linkTarget={"target"}
-        linkDirectionalArrowLength={8}
-        linkDirectionalArrowRelPos={1}
+        linkDirectionalArrowLength={12}
+        linkDirectionalArrowRelPos={0.75}
+        linkOpacity={0.5}
+        linkWidth={3}
         linkVisibility={"isVisible"}
         //dagMode={"radialin"}
         //onDagError={(error) => console.error(error)}
         onNodeClick={onNodeClick}
         extraRenderers={extraRenderers}
         nodeThreeObject={nodeToHTML}
-        nodeThreeObjectExtend={true}
+        //nodeThreeObjectExtend={true}
         onNodeDragEnd={(node) => {
           node.fx = node.x;
           node.fy = node.y;

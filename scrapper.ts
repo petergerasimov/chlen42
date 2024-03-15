@@ -18,7 +18,7 @@ const toGraphData = (contents: ArticleInfo[]) => {
 
   for (const content of contents) {
     graphData.nodes.push({ id: content.article_num, group: 1, size: 1, isVisible: true });
-    articleNums.set(content.article_num, 1);
+    articleNums.set(content.article_num, 5);
   }
 
   for (const content of contents) {
@@ -27,7 +27,7 @@ const toGraphData = (contents: ArticleInfo[]) => {
       if (!articleNums.has(article_num)) {
         return;
       }
-      articleNums.set(article_num, articleNums.get(article_num)! + 3);
+      articleNums.set(article_num, articleNums.get(article_num)! + 1);
       graphData.links.push({
         source: content.article_num,
         target: article_num,
