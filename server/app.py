@@ -29,6 +29,7 @@ from llama_index.llms import OpenAI
 import os
 from dotenv import dotenv_values
 from llama_index.embeddings.openai import OpenAIEmbedding
+from flask_cors import CORS
 
 from flask import Flask, request
 
@@ -79,6 +80,7 @@ def chatbot(query):
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -87,4 +89,6 @@ def chat():
 
 
 if __name__ == '__main__':
-    app.run(port=4000, ssl_context='adhoc')
+    # https
+    # app.run(port=4000, ssl_context='adhoc')
+    app.run(port=4000)

@@ -28,6 +28,22 @@ export function ChatBox() {
     );
   }, [messages]);
 
+  const fetchBot = async (query: string) => {
+    const res = await fetch("http://localhost:4000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query }),
+    });
+    const data: {
+      response: string;
+      related_files: string[];
+    } = await res.json();
+
+    return data;
+  };
+
   const send = useCallback(() => {
     if (typedMessage === "") return;
 
@@ -37,6 +53,12 @@ export function ChatBox() {
     if (inputRef.current) {
       inputRef.current.value = "";
     }
+    fetchBot(typedMessage).then((data) => {
+      setMessages((prev) => [
+        ...prev,
+        { content: data.response, fromBot: true },
+      ]);
+    });
   }, [typedMessage]);
 
   useEffect(() => {

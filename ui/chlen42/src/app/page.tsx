@@ -16,7 +16,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <div className="fixed top-0 h-2/4 right-0 p-4 bg-gray-200 shadow-md">
+      <div className="fixed top-0 h-2/4 right-0 p-4 bg-gray-200 shadow-md max-w-md">
         <ChatBox />
       </div>
     </>
