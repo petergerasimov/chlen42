@@ -3,7 +3,7 @@ import { useState, useRef, useLayoutEffect, useEffect, use } from "react";
 import { ForceGraph3D } from "react-force-graph";
 import LawData from "../../public/parsed.json";
 import { CSS3DObject, CSS3DRenderer } from "three/examples/jsm/renderers/CSS3DRenderer";
-import ReactFlow, { useEdgesState, useNodesState } from "reactflow";
+import ReactFlow, { useEdgesState, useNodesState, Background, BackgroundVariant } from "reactflow";
 import "reactflow/dist/style.css";
 import * as THREE from "three";
 import { forceSimulation, forceManyBody, forceLink, forceX, forceY } from "d3-force";
@@ -106,7 +106,9 @@ export default function Graph() {
         edgeTypes={edgeTypes}
         nodeTypes={nodeTypes}
         fitView
-      />
+      >
+        <Background color="darkgray" variant={BackgroundVariant.Dots} />
+      </ReactFlow>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import GraphData from "../../public/flow-graph.json";
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-between">
+    <main className="relative flex min-h-screen flex-col bg-gray-100 items-center justify-between">
       <Graph graphData={GraphData}></Graph>
       <div className="absolute top-10 right-10 bg-black/60 rounded-xl">
         <div>

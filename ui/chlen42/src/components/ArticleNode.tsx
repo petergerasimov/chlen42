@@ -60,19 +60,19 @@ export default function ArticleNode({ data }) {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect, updateNodeType } = useStore(selector, shallow);
 
   return (
-    <>
-      <Handle type="target" position={Position.Top} />
-      <div className="w-full h-10 bg-slate-500 drag-handle cursor-grab">
+    <div className="rounded-xl shadow-xl">
+      <Handle type="target" position={Position.Bottom} />
+      <div className="w-full h-10 bg-slate-500 drag-handle cursor-grab rounded-t-xl">
         <FaTimes
           className="text-white absolute right-2 top-2 cursor-pointer"
           onClick={() => updateNodeType(data.label, "custom-node", null)}
         />
       </div>
-      <div className="bg-white text-black w-[500px] overflow-y-scroll nodrag">
+      <div className="bg-white text-black w-[500px] h-[250px] overflow-y-scroll nodrag resize rounded-b-xl pl-2 styled-scrollbar">
         {/* <NodeResizer maxHeight={500} /> */}
         {data.article ? constructDataNodeComponent(data.article) : <div>Loading...</div>}
       </div>
       <Handle type="source" position={Position.Bottom} id="a" />
-    </>
+    </div>
   );
 }
