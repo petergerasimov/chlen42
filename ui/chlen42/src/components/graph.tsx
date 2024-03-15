@@ -1,8 +1,9 @@
 "use client";
-import { useState, useRef, useLayoutEffect, useEffect } from "react";
+import { useState, useRef, useLayoutEffect, useEffect, use } from "react";
 import { ForceGraph3D } from "react-force-graph";
 import LawData from "../../public/parsed.json";
 import { CSS3DObject, CSS3DRenderer } from "three/examples/jsm/renderers/CSS3DRenderer";
+
 import * as THREE from "three";
 
 interface NodesMap {
@@ -48,44 +49,16 @@ export default function Graph({ graphData }: { graphData: any }) {
     }
 
     const div = document.createElement("div");
-    const articleEl = document.createElement("div");
-    articleEl.textContent = article.meta.text;
-    articleEl.style.backgroundColor = "white";
-    articleEl.style.color = "black";
-    articleEl.style.padding = "5px";
-    articleEl.style.border = "1px solid black";
-    articleEl.style.borderRadius = "5px";
-
     const iframe = document.createElement("iframe");
     iframe.style.backgroundColor = "white";
     iframe.style.resize = "both";
     iframe.id = "article_iframe";
+    iframe.src = "/article";
 
-    for (const alinea of article.alineas) {
-      const alineaEl = document.createElement("div");
-      alineaEl.textContent = `(${alinea.id}) ${alinea.meta.text}`;
-
-      for (const point of alinea.points) {
-        const pointEl = document.createElement("div");
-        pointEl.textContent = `${point.id}. ${point.meta.text}`;
-
-        for (const letter of point.letters) {
-          const letterEl = document.createElement("div");
-          letterEl.textContent = `${letter.id}) ${letter.text}`;
-          pointEl.appendChild(letterEl);
-        }
-
-        alineaEl.appendChild(pointEl);
-      }
-
-      articleEl.appendChild(alineaEl);
-    }
-
-    iframe.srcdoc = articleEl.innerHTML;
-    //iframe.src = "https://www.google.com";
-    console.log(iframe.offsetHeight, iframe.offsetWidth);
     div.appendChild(iframe);
     iframe.onload = () => {
+      iframe.contentWindow.postMessage(article, "*");
+
       iframe.contentWindow.onresize = (ev) => {
         const width = iframe.contentWindow.innerWidth;
         const height = iframe.contentWindow.innerHeight;
@@ -122,7 +95,7 @@ export default function Graph({ graphData }: { graphData: any }) {
       delete selectedNodes[node.id];
     } else {
       const box = new THREE.BoxGeometry(300, 170, 1);
-      const boxMesh = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ color: 0x00ff00 }));
+      const boxMesh = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ color: 0x52525b }));
       boxMesh.position.set(0, 10, 0);
 
       selectedNodes[node.id] = {
@@ -143,14 +116,15 @@ export default function Graph({ graphData }: { graphData: any }) {
 
     for (const link of graphData.links) {
       //console.log(link.source.id, node.id);
-      if (selectedNodes[link.source.id]) {
-        neighbors.add(link.target.id);
+      if (selectedNodes[link.source.id] || selectedNodes[link.target.id]) {
+        neighbors.add(selectedNodes[link.source.id] ? link.target.id : link.source.id);
         link.isVisible = true;
-      } else if (selectedNodes[link.target.id]) {
-        neighbors.add(link.source.id);
-        link.isVisible = true;
+        // link.color = 0xff0000;
+        // link.__lineObj.material.color = new THREE.Color(0xff0000);
+        // console.log(link.__lineObj);
       } else {
         link.isVisible = false;
+        //link.opacity = 0.5;
       }
     }
 
@@ -158,13 +132,18 @@ export default function Graph({ graphData }: { graphData: any }) {
       if (selectedNodes[n.id] || neighbors.has(n.id)) {
         n.isVisible = true;
         n.color = 0xff0000;
+        n.fx = n.x;
+        n.fy = n.y;
+        n.fz = n.z;
       } else {
         n.isVisible = false;
+        //n.opacity = 0.1;
       }
     }
 
     setSelectedNodes(selectedNodes);
     setGData({ ...graphData });
+    //fgRef.current.refresh();
   };
 
   const nodeToHTML = (node) => {
@@ -176,12 +155,15 @@ export default function Graph({ graphData }: { graphData: any }) {
         elem = constructArticleComponents(node.id);
         selectedNodes[node.id].iframe = elem;
       }
-      console.log("CUSTOM ELEME", elem);
+      //console.log("CUSTOM ELEME", elem);
     } else {
       //create three js sphere
       const geometry = new THREE.SphereGeometry(node.size, 10, 10);
+      //console.log(node.opacity);
       const material = new THREE.MeshBasicMaterial({
-        color: 0xffff00,
+        color: node.color,
+        opacity: node.opacity || 1,
+        transparent: true,
       });
       return new THREE.Mesh(geometry, material);
     }
@@ -200,11 +182,36 @@ export default function Graph({ graphData }: { graphData: any }) {
 
   const extraRenderers = [new CSS3DRenderer()];
 
+  const fixNodes = () => {
+    console.log(gData.nodes[0]);
+    for (const node of gData.nodes) {
+      node.fx = node.x;
+      node.fy = node.y;
+      node.fz = node.z;
+    }
+    setGData({ ...gData });
+  };
+
+  const [dims, setDims] = useState<1 | 2 | 3>(2);
+  useEffect(() => {
+    window.onkeydown = (ev) => {
+      if (ev.key === "d") {
+        const newDim = dims === 3 ? 1 : dims === 2 ? 3 : 2;
+        setDims(newDim);
+      }
+    };
+
+    return () => {
+      window.onkeydown = null;
+    };
+  }, [dims]);
+
   return (
-    <div className="w-full h-full" ref={containerRef}>
+    <div className="w-full h-screen" ref={containerRef}>
       <ForceGraph3D
         ref={fgRef}
-        numDimensions={2}
+        numDimensions={dims}
+        backgroundColor="#f1f5f9"
         graphData={gData}
         width={width}
         height={height}
@@ -213,12 +220,11 @@ export default function Graph({ graphData }: { graphData: any }) {
         nodeLabel={"id"}
         nodeAutoColorBy={"group"}
         nodeVisibility={"isVisible"}
-        nodeOpacity={1}
         linkSource={"source"}
         linkTarget={"target"}
-        linkDirectionalArrowLength={12}
+        linkDirectionalArrowLength={20}
         linkDirectionalArrowRelPos={0.75}
-        linkOpacity={0.5}
+        //linkOpacity={"opacity"}
         linkWidth={3}
         linkVisibility={"isVisible"}
         //dagMode={"radialin"}
@@ -232,6 +238,10 @@ export default function Graph({ graphData }: { graphData: any }) {
           node.fy = node.y;
           node.fz = node.z;
         }}
+        // d3AlphaDecay={0.05}
+        // d3VelocityDecay={0.4}
+        // cooldownTicks={100}
+        // onEngineStop={fixNodes}
       />
     </div>
   );
