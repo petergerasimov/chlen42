@@ -47,18 +47,18 @@ export function ChatBox() {
 
   return (
     <div className="w-100 h-full flex flex-col gap-2">
-      {/* <ScrollArea className="h-full"> */}
-      <div className="flex flex-col flex-grow overflow-y-auto place-content-end gap-2">
-        {messages.map((msg, i) => (
-          <ChatBubble
-            key={i}
-            name={msg.fromBot ? "Bot" : "You"}
-            message={msg.content}
-            other={msg.fromBot}
-          />
-        ))}
-      </div>
-      {/* </ScrollArea> */}
+      <ScrollArea className="h-full">
+        <div className="flex flex-col gap-2 pr-5">
+          {messages.map((msg, i) => (
+            <ChatBubble
+              key={i}
+              name={msg.fromBot ? "Bot" : "You"}
+              message={msg.content}
+              other={msg.fromBot}
+            />
+          ))}
+        </div>
+      </ScrollArea>
       <div className="flex gap-2">
         <Input
           ref={inputRef}
