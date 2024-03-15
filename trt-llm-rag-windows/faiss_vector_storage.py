@@ -46,7 +46,8 @@ class FaissEmbeddingStorage:
             return index
         else:
             print("generating new values")
-            documents = SimpleDirectoryReader(self.data_dir).load_data()
+            file_metadata = lambda x: {"filename": x}
+            documents = SimpleDirectoryReader(self.data_dir, file_metadata=file_metadata).load_data()
             faiss_index = faiss.IndexFlatL2(self.d)
             vector_store = FaissVectorStore(faiss_index=faiss_index)
             storage_context = StorageContext.from_defaults(vector_store=vector_store)

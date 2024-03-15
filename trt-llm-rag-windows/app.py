@@ -33,6 +33,7 @@ from llama_index.llms import OpenAI
 import os
 from dotenv import dotenv_values
 from llama_index.embeddings.openai import OpenAIEmbedding
+from collections import defaultdict
 
 os.environ["OPENAI_API_KEY"] = dotenv_values(".env")["API_KEY"]
 
@@ -90,7 +91,19 @@ def chatbot(query, history):
 
     else:
         response = query_engine.query(query)
-    return str(response)
+    
+    file_scores = defaultdict(float)
+    for node in response.source_nodes:
+        metadata = node.metadata
+        if 'filename' in metadata:
+            file_name = metadata['filename']
+            file_scores[file_name] += node.score
+
+    highest_aggregated_score_file = None
+    if file_scores:
+        highest_aggregated_score_file = max(file_scores, key=file_scores.get)
+
+    return str(response) + ' ' + str(highest_aggregated_score_file)
 
 # Gradio UI inference function
 interface = gr.ChatInterface(
