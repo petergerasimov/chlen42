@@ -19,6 +19,14 @@ export function ChatBox() {
   const [typedMessage, setTypedMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setTimeout(
+      () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }),
+      100
+    );
+  }, [messages]);
 
   const send = useCallback(() => {
     if (typedMessage === "") return;
@@ -57,6 +65,7 @@ export function ChatBox() {
               other={msg.fromBot}
             />
           ))}
+          <div ref={messagesEndRef} />
         </div>
       </ScrollArea>
       <div className="flex gap-2">
