@@ -74,6 +74,15 @@ const nodesById = initialNodes.reduce((acc, node) => {
 }, {});
 const selectedNodes: { [key: string]: boolean } = {};
 
+export const selector = (state) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  onNodesChange: state.onNodesChange,
+  onEdgesChange: state.onEdgesChange,
+  onConnect: state.onConnect,
+  updateNodeType: state.updateNodeType,
+});
+
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
   nodes: initialNodes,

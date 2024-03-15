@@ -1,7 +1,7 @@
 import { Handle, Position, NodeResizer } from "reactflow";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { shallow } from "zustand/shallow";
-import useStore from "./store";
+import useStore, { selector } from "./store";
 import { FaTimes } from "react-icons/fa";
 
 type DataNode = Article | Alinea | Point | Letter;
@@ -13,14 +13,7 @@ const idFormatters = {
   3: (text: string) => `${text})`,
 };
 type idFormatterKey = keyof typeof idFormatters;
-const selector = (state) => ({
-  nodes: state.nodes,
-  edges: state.edges,
-  onNodesChange: state.onNodesChange,
-  onEdgesChange: state.onEdgesChange,
-  onConnect: state.onConnect,
-  updateNodeType: state.updateNodeType,
-});
+
 export default function ArticleNode({ data }) {
   const getDataNodeChildren = (data: DataNode): DataNode[] => {
     if (Object.keys(data).includes("alineas")) {
@@ -34,7 +27,10 @@ export default function ArticleNode({ data }) {
     return [];
   };
 
-  const constructDataNodeComponent = (data: DataNode, depth: idFormatterKey = 0) => {
+  const constructDataNodeComponent = (
+    data: DataNode,
+    depth: idFormatterKey = 0
+  ) => {
     const idFormatter = idFormatters[depth];
     const children = getDataNodeChildren(data);
     //console.log("TONI TEST", data, data.meta);
@@ -42,7 +38,9 @@ export default function ArticleNode({ data }) {
     return (
       <div key={data.id} className="ml-4">
         <div className="relative">
-          {data.meta.dv && <FaClockRotateLeft className="text-sm text-black/50 peer absolute -left-5 top-1" />}
+          {data.meta.dv && (
+            <FaClockRotateLeft className="text-sm text-black/50 peer absolute -left-5 top-1" />
+          )}
           <b>{idFormatter(data.id)} </b>
           {data.meta.dv && (
             <div className="absolute hidden peer-hover:block left-0 rounded p-2 bg-zinc-600 text-white">
@@ -52,12 +50,15 @@ export default function ArticleNode({ data }) {
           <span>{data.meta.text}</span>
         </div>
         {children.map((child) => {
-          return constructDataNodeComponent(child, (depth + 1) as idFormatterKey);
+          return constructDataNodeComponent(
+            child,
+            (depth + 1) as idFormatterKey
+          );
         })}
       </div>
     );
   };
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, updateNodeType } = useStore(selector, shallow);
+  const { updateNodeType } = useStore(selector, shallow);
 
   return (
     <div className="rounded-xl shadow-xl">
@@ -70,7 +71,11 @@ export default function ArticleNode({ data }) {
       </div>
       <div className="bg-white text-black w-[500px] h-[250px] overflow-y-scroll nodrag resize rounded-b-xl pl-2 styled-scrollbar">
         {/* <NodeResizer maxHeight={500} /> */}
-        {data.article ? constructDataNodeComponent(data.article) : <div>Loading...</div>}
+        {data.article ? (
+          constructDataNodeComponent(data.article)
+        ) : (
+          <div>Loading...</div>
+        )}
       </div>
       <Handle type="source" position={Position.Bottom} id="a" />
     </div>
