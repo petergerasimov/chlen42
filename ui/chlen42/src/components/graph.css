@@ -2,3 +2,8 @@
     width:auto;
     padding: 0px;
 }
+
+.react-flow__node {
+    user-select: auto;
+    cursor: auto;
+}
