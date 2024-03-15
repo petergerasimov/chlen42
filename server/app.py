@@ -21,12 +21,9 @@
 
 import time
 
-import gradio as gr
 import argparse
 # from trt_llama_api import TrtLlmAPI #llama_index does not currently support TRT-LLM. The trt_llama_api.py file defines a llama_index compatible interface for TRT-LLM.
-from langchain.embeddings.huggingface import HuggingFaceEmbeddings
-from llama_index import LangchainEmbedding, ServiceContext
-from llama_index.llms.llama_utils import messages_to_prompt, completion_to_prompt
+from llama_index import ServiceContext
 from llama_index import set_global_service_context
 from faiss_vector_storage import FaissEmbeddingStorage
 from llama_index.llms import OpenAI
@@ -35,19 +32,13 @@ from dotenv import dotenv_values
 from llama_index.embeddings.openai import OpenAIEmbedding
 from collections import defaultdict
 
+from flask import Flask, request
+
+
 os.environ["OPENAI_API_KEY"] = dotenv_values(".env")["API_KEY"]
 
 
-# Create an argument parser
 parser = argparse.ArgumentParser(description='NVIDIA Chatbot Parameters')
-
-# Add arguments
-# parser.add_argument('--trt_engine_path', type=str, required=True,
-#                     help="Path to the TensorRT engine.", default="")
-# parser.add_argument('--trt_engine_name', type=str, required=True,
-#                     help="Name of the TensorRT engine.", default="")
-# parser.add_argument('--tokenizer_dir_path', type=str, required=True,
-#                     help="Directory path for the tokenizer.", default="")
 parser.add_argument('--embedded_model', type=str,
                     help="Name or path of the embedded model. Defaults to 'sentence-transformers/all-MiniLM-L6-v2' if "
                          "not provided.",
@@ -58,16 +49,9 @@ parser.add_argument('--verbose', type=bool, required=False,
                     help="Enable verbose logging.", default=False)
 # Parse the arguments
 args = parser.parse_args()
-
-# Use the provided arguments
-# trt_engine_path = args.trt_engine_path
-# trt_engine_name = args.trt_engine_name
-# tokenizer_dir_path = args.tokenizer_dir_path
 embedded_model = args.embedded_model
 data_dir = args.data_dir
 verbose = args.verbose
-
-# create trt_llm engine object
 llm = OpenAI(model='gpt-4')
 embed_model = OpenAIEmbedding()
 
@@ -81,7 +65,7 @@ faiss_storage = FaissEmbeddingStorage(data_dir=data_dir, dimension=1536)
 query_engine = faiss_storage.get_query_engine()
 
 # chat function to trigger inference
-def chatbot(query, history):
+def chatbot(query):
     if verbose:
         start_time = time.time()
         response = query_engine.query(query)
@@ -105,10 +89,14 @@ def chatbot(query, history):
 
     return str(response) + ' ' + str(highest_aggregated_score_file)
 
-# Gradio UI inference function
-interface = gr.ChatInterface(
-    fn=chatbot,                        # Function to call on user input
-    title="Legal Chat",    # Title of the web page
-    description="Ask me anything!",    # Description
-)
-interface.launch(server_name="localhost")
+
+app = Flask(__name__)
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    query = request.json['query']
+    return chatbot(query)
+
+
+if __name__ == '__main__':
+    app.run(port=3000, ssl_context='adhoc')
