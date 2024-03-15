@@ -29,7 +29,6 @@ from llama_index.llms import OpenAI
 import os
 from dotenv import dotenv_values
 from llama_index.embeddings.openai import OpenAIEmbedding
-from collections import defaultdict
 
 from flask import Flask, request
 
@@ -37,18 +36,13 @@ from flask import Flask, request
 os.environ["OPENAI_API_KEY"] = dotenv_values(".env")["API_KEY"]
 
 
-parser = argparse.ArgumentParser(description='NVIDIA Chatbot Parameters')
-parser.add_argument('--embedded_model', type=str,
-                    help="Name or path of the embedded model. Defaults to 'sentence-transformers/all-MiniLM-L6-v2' if "
-                         "not provided.",
-                    default='sentence-transformers/all-MiniLM-L6-v2')
+parser = argparse.ArgumentParser(description='Legal Chatbot Parameters')
 parser.add_argument('--data_dir', type=str, required=False,
                     help="Directory path for data.", default="./dataset")
 parser.add_argument('--verbose', type=bool, required=False,
                     help="Enable verbose logging.", default=False)
 # Parse the arguments
 args = parser.parse_args()
-embedded_model = args.embedded_model
 data_dir = args.data_dir
 verbose = args.verbose
 llm = OpenAI(model='gpt-4')
