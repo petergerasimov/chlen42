@@ -1,34 +1,20 @@
-from llama_index.core import download_loader
+text = "hello here is some text with some terms like"
+terms_to_link = [("text", "example.com/text1"), ("some", "example.com/some")]
 
-from llama_index.readers.wikipedia import WikipediaReader
+def link_terms(text, terms_to_link):
+    import re
+    terms_to_link = sorted(terms_to_link, key=lambda x: len(x[0]), reverse=True)
+    pattern = '|'.join(re.escape(term) for term, _ in terms_to_link)
+    parts = []
+    last_end = 0
+    for match in re.finditer(pattern, text):
+        if last_end != match.start():
+            parts.append((text[last_end:match.start()], None))
+        parts.append((match.group(), dict(terms_to_link)[match.group()]))
+        last_end = match.end()
+    if last_end != len(text):
+        parts.append((text[last_end:], None))
+    return parts
 
-loader = WikipediaReader()
-
-documents = loader.load_data(
-    pages=["Mathematics"], auto_suggest=False
-)
-
-from llama_index.core import StorageContext
-from llama_index.core import KnowledgeGraphIndex
-from llama_index.core.graph_stores import SimpleGraphStore
-graph_store = SimpleGraphStore()
-storage_context = StorageContext.from_defaults(graph_store=graph_store)
-
-space_name = "llamaindex"
-edge_types, rel_prop_names = ["relationship"], [
-    "relationship"
-]  # default, could be omit if create from an empty kg
-tags = ["entity"]  # default, could be omit if create from an empty kg
-
-kg_index = KnowledgeGraphIndex.from_documents(
-    documents,
-    storage_context=storage_context,
-    max_triplets_per_chunk=10,
-    space_name=space_name,
-    edge_types=edge_types,
-    rel_prop_names=rel_prop_names,
-    tags=tags,
-    include_embeddings=True
-)
-
-storage_context.persist(persist_dir="./index_persist")
+result = link_terms(text, terms_to_link)
+print(result)

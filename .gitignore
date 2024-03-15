@@ -1,4 +1,6 @@
 node_modules
+terms-output
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
