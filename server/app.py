@@ -83,7 +83,7 @@ app = Flask(__name__)
 @app.route('/chat', methods=['POST'])
 def chat():
     query = request.json['query']
-    return chatbot(query)
+    return chatbot('Кои части от членовете по-горе са най-релевантни за следния въпрос: "' + query + '"?')
 
 
 if __name__ == '__main__':
