@@ -22,7 +22,6 @@
 import time
 
 import argparse
-# from trt_llama_api import TrtLlmAPI #llama_index does not currently support TRT-LLM. The trt_llama_api.py file defines a llama_index compatible interface for TRT-LLM.
 from llama_index import ServiceContext
 from llama_index import set_global_service_context
 from faiss_vector_storage import FaissEmbeddingStorage
@@ -55,8 +54,6 @@ verbose = args.verbose
 llm = OpenAI(model='gpt-4')
 embed_model = OpenAIEmbedding()
 
-# create embeddings model object
-# embed_model = LangchainEmbedding(HuggingFaceEmbeddings(model_name=embedded_model))
 service_context = ServiceContext.from_defaults(llm=llm, embed_model=embed_model)
 set_global_service_context(service_context)
 
@@ -76,18 +73,15 @@ def chatbot(query):
     else:
         response = query_engine.query(query)
     
-    file_scores = defaultdict(float)
-    for node in response.source_nodes:
-        metadata = node.metadata
-        if 'filename' in metadata:
-            file_name = metadata['filename']
-            file_scores[file_name] += node.score
+    # map response.source_nodes to array of filenames
+    file_names = [node.metadata['filename'] for node in response.source_nodes]
 
-    highest_aggregated_score_file = None
-    if file_scores:
-        highest_aggregated_score_file = max(file_scores, key=file_scores.get)
+    # return response and related files as json
+    return {
+        "response": response.response,
+        "related_files": file_names
+    }
 
-    return str(response) + ' ' + str(highest_aggregated_score_file)
 
 
 app = Flask(__name__)
@@ -99,4 +93,4 @@ def chat():
 
 
 if __name__ == '__main__':
-    app.run(port=3000, ssl_context='adhoc')
+    app.run(port=4000, ssl_context='adhoc')
