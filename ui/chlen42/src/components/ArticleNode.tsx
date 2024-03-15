@@ -1,8 +1,9 @@
-"use client";
-import { useEffect, useState } from "react";
-import { FaC, FaClockRotateLeft } from "react-icons/fa6";
+import { Handle, Position, NodeResizer } from "reactflow";
+import { FaClockRotateLeft } from "react-icons/fa6";
+import { shallow } from "zustand/shallow";
+import useStore from "./store";
+import { FaTimes } from "react-icons/fa";
 
-import HardcodedArticle from "../../../public/166.json";
 type DataNode = Article | Alinea | Point | Letter;
 
 const idFormatters = {
@@ -12,22 +13,15 @@ const idFormatters = {
   3: (text: string) => `${text})`,
 };
 type idFormatterKey = keyof typeof idFormatters;
-
-export default function ArticlePage() {
-  const [article, setArticle] = useState<Article>();
-
-  const handleMessage = (msg: MessageEvent) => {
-    console.log(msg);
-    if (msg.origin !== "http://localhost:3000") {
-      return;
-    }
-    if (typeof msg.data !== "object" || msg.data.type !== "article") {
-      return;
-    }
-    setArticle(msg.data.article);
-  };
-
-  window.addEventListener("message", handleMessage);
+const selector = (state) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  onNodesChange: state.onNodesChange,
+  onEdgesChange: state.onEdgesChange,
+  onConnect: state.onConnect,
+  updateNodeType: state.updateNodeType,
+});
+export default function ArticleNode({ data }) {
   const getDataNodeChildren = (data: DataNode): DataNode[] => {
     if (Object.keys(data).includes("alineas")) {
       return (data as Article).alineas;
@@ -71,11 +65,33 @@ export default function ArticlePage() {
       </div>
     );
   };
+  const {
+    nodes,
+    edges,
+    onNodesChange,
+    onEdgesChange,
+    onConnect,
+    updateNodeType,
+  } = useStore(selector, shallow);
 
-  // TODO make recursive and style by depth
   return (
-    <div className="bg-white text-black">
-      {article ? constructDataNodeComponent(article) : <div>Loading...</div>}
-    </div>
+    <>
+      <Handle type="target" position={Position.Top} />
+      <div className="w-full h-10 bg-slate-500 drag-handle cursor-grab">
+        <FaTimes
+          className="text-white absolute right-2 top-2 cursor-pointer"
+          onClick={() => updateNodeType(data.label, "custom-node", null)}
+        />
+      </div>
+      <div className="bg-white text-black w-[500px] overflow-y-scroll nodrag">
+        {/* <NodeResizer maxHeight={500} /> */}
+        {data.article ? (
+          constructDataNodeComponent(data.article)
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
+      <Handle type="source" position={Position.Bottom} id="a" />
+    </>
   );
 }
