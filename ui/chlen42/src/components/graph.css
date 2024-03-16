@@ -1,9 +1,13 @@
 .react-flow__node-default {
-    width:auto;
-    padding: 0px;
+  width: auto;
+  padding: 0px;
 }
 
 .react-flow__node {
-    user-select: auto;
-    cursor: auto;
+  user-select: auto;
+  cursor: auto;
+}
+
+.react-flow__node-article-node {
+  z-index: 10 !important;
 }
