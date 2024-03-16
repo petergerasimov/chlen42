@@ -25,10 +25,7 @@ export function ChatBox() {
   const { updateNodeType } = useStore(selector, shallow);
 
   useEffect(() => {
-    setTimeout(
-      () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }),
-      100
-    );
+    setTimeout(() => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
   }, [messages]);
 
   const fetchBot = async (query: string) => {
@@ -57,15 +54,10 @@ export function ChatBox() {
       inputRef.current.value = "";
     }
     fetchBot(typedMessage).then((data) => {
-      const articleNodeIds = data.related_files.map(
-        (s) => s.match(/^dataset\/([a-я0-9]+)\.txt$/)?.[1] ?? ""
-      );
+      const articleNodeIds = data.related_files.map((s) => s.match(/^dataset\/([a-я0-9]+)\.txt$/)?.[1] ?? "");
 
       updateNodeType(articleNodeIds, "article-node");
-      setMessages((prev) => [
-        ...prev,
-        { content: data.response, fromBot: true },
-      ]);
+      setMessages((prev) => [...prev, { content: data.response, fromBot: true }]);
     });
   }, [typedMessage, updateNodeType]);
 
@@ -88,12 +80,7 @@ export function ChatBox() {
       <ScrollArea className="h-full">
         <div className="flex flex-col gap-2 pr-5">
           {messages.map((msg, i) => (
-            <ChatBubble
-              key={i}
-              name={msg.fromBot ? "Bot" : "You"}
-              message={msg.content}
-              other={msg.fromBot}
-            />
+            <ChatBubble key={i} name={msg.fromBot ? "Bot" : "You"} message={msg.content} other={msg.fromBot} />
           ))}
           <div ref={messagesEndRef} />
         </div>
@@ -101,6 +88,7 @@ export function ChatBox() {
       <div className="flex gap-2">
         <Input
           ref={inputRef}
+          className="text-black"
           onChange={(el) => {
             setTypedMessage(el.target.value);
           }}
