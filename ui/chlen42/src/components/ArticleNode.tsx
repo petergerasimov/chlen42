@@ -28,25 +28,21 @@ export default function ArticleNode({ data }) {
   };
 
   const buildLinkedText = (links: Link[]) => {
-    return (
-      <p>
-        {links.map(([text, link], i) => {
-          if (!link || link === data.label) return text;
+    return links.map(([text, link], i) => {
+      if (!link || link === data.label) return text;
 
-          return (
-            <a
-              key={i}
-              className="font-bold text-sky-600 cursor-pointer"
-              onClick={() => {
-                updateNodeType(link, "article-node", findArticle(link));
-              }}
-            >
-              {text}
-            </a>
-          );
-        })}
-      </p>
-    );
+      return (
+        <a
+          key={i}
+          className="font-bold text-sky-600 cursor-pointer"
+          onClick={() => {
+            updateNodeType(link, "article-node", findArticle(link));
+          }}
+        >
+          {text}
+        </a>
+      );
+    });
   };
 
   const constructDataNodeComponent = (data: DataNode, depth: idFormatterKey = 0) => {
