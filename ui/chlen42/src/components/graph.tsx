@@ -2,11 +2,25 @@
 import { useState, useRef, useLayoutEffect, useEffect, use } from "react";
 import { ForceGraph3D } from "react-force-graph";
 import LawData from "../../public/parsed.json";
-import { CSS3DObject, CSS3DRenderer } from "three/examples/jsm/renderers/CSS3DRenderer";
-import ReactFlow, { useEdgesState, useNodesState, Background, BackgroundVariant } from "reactflow";
+import {
+  CSS3DObject,
+  CSS3DRenderer,
+} from "three/examples/jsm/renderers/CSS3DRenderer";
+import ReactFlow, {
+  useEdgesState,
+  useNodesState,
+  Background,
+  BackgroundVariant,
+} from "reactflow";
 import "reactflow/dist/style.css";
 import * as THREE from "three";
-import { forceSimulation, forceManyBody, forceLink, forceX, forceY } from "d3-force";
+import {
+  forceSimulation,
+  forceManyBody,
+  forceLink,
+  forceX,
+  forceY,
+} from "d3-force";
 //overwrite some css
 import "./graph.css";
 
@@ -51,20 +65,12 @@ const nodeTypes = {
 //   link.target = link.target.id;
 // }
 import { shallow } from "zustand/shallow";
-import useStore from "./store";
-
-const selector = (state) => ({
-  nodes: state.nodes,
-  edges: state.edges,
-  onNodesChange: state.onNodesChange,
-  onEdgesChange: state.onEdgesChange,
-  onConnect: state.onConnect,
-  updateNodeType: state.updateNodeType,
-});
+import useStore, { selector } from "./store";
 
 export default function Graph() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, updateNodeType } = useStore(selector, shallow);
+  const { nodes, edges, onNodesChange, onEdgesChange, updateNodeType } =
+    useStore(selector, shallow);
 
   // console.log("ONEONE", GraphData);
 

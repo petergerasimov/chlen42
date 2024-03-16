@@ -1,7 +1,7 @@
 import { Handle, Position, NodeResizer } from "reactflow";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { shallow } from "zustand/shallow";
-import useStore, { findArticle } from "./store";
+import useStore, { selector, findArticle } from "./store";
 import { FaTimes } from "react-icons/fa";
 
 type DataNode = Article | Alinea | Point | Letter;
@@ -13,14 +13,7 @@ const idFormatters = {
   3: (text: string) => `${text})`,
 };
 type idFormatterKey = keyof typeof idFormatters;
-const selector = (state) => ({
-  nodes: state.nodes,
-  edges: state.edges,
-  onNodesChange: state.onNodesChange,
-  onEdgesChange: state.onEdgesChange,
-  onConnect: state.onConnect,
-  updateNodeType: state.updateNodeType,
-});
+
 export default function ArticleNode({ data }) {
   const getDataNodeChildren = (data: DataNode): DataNode[] => {
     if (Object.keys(data).includes("alineas")) {
@@ -79,7 +72,7 @@ export default function ArticleNode({ data }) {
       </div>
     );
   };
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, updateNodeType } = useStore(selector, shallow);
+  const { updateNodeType } = useStore(selector, shallow);
 
   return (
     <div className="rounded-xl shadow-xl">

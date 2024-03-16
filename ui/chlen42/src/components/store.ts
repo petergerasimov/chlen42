@@ -1,3 +1,5 @@
+"use client";
+
 import { create } from "zustand";
 import {
   Connection,
@@ -18,7 +20,7 @@ import GraphData from "../../public/flow-graph.json";
 
 const simulation = forceSimulation(GraphData.nodes)
   .force("charge", forceManyBody().strength(-120))
-  .force("link", forceLink(GraphData.links).distance(100).strength(1).iterations(15))
+  .force("link", forceLink(GraphData.links).distance(500).strength(0.2).iterations(15))
   .force("x", forceX())
   .force("y", forceY())
   .stop();
@@ -58,6 +60,15 @@ const nodesById = initialNodes.reduce((acc, node) => {
   return acc;
 }, {});
 const selectedNodes: { [key: string]: boolean } = {};
+
+export const selector = (state) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  onNodesChange: state.onNodesChange,
+  onEdgesChange: state.onEdgesChange,
+  onConnect: state.onConnect,
+  updateNodeType: state.updateNodeType,
+});
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
