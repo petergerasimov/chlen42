@@ -36,7 +36,7 @@ def process_children(item, level=0):
   for child in children:
     terms_to_link = defined_terms # + [(t, "UNKNOWN") for t in used_terms]
     # print(terms_to_link)
-    term_parts = link_terms(child['text'], terms_to_link)
+    term_parts = link_terms(child['meta']['text'], terms_to_link)
     final_parts = []
     for part, link in term_parts:
       if link is None:
