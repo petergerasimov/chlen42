@@ -92,8 +92,10 @@ const useStore = create<RFState>((set, get) => ({
       hideAll = true;
     }
 
+    let deleting = false;
     if (selectedNodes[nodeId]) {
       delete selectedNodes[nodeId];
+      deleting = true;
 
       //reset all nodes
       if (Object.keys(selectedNodes).length === 0) {
@@ -105,6 +107,8 @@ const useStore = create<RFState>((set, get) => ({
             return { ...edge, hidden: false };
           }),
         });
+
+        return;
       }
     } else {
       selectedNodes[nodeId] = true;
@@ -117,19 +121,24 @@ const useStore = create<RFState>((set, get) => ({
     //console.log(selectedNodes);
     const neightbours = get()
       .edges.filter((edge) => selectedNodes[edge.source] || selectedNodes[edge.target])
-      .map((edge) => (edge.source === nodeId ? edge.target : edge.source));
+      .map((edge) => (selectedNodes[edge.source] ? edge.target : edge.source));
 
     set({
       nodes: get().nodes.map((node) => {
         if (node.id === nodeId) {
+          console.log(node.id, nodeId, node.id === nodeId, selectedNodes);
           if (selectedNodes[node.id]) {
-            return { ...node, type, dragHandle: ".drag-handle", data: { ...node.data, article } };
+            return { ...node, type, hidden: false, dragHandle: ".drag-handle", data: { ...node.data, article } };
           }
-          return { ...node, type: "custom-node" };
+          return { ...node, hidden: !neightbours.includes(node.id), type: "custom-node" };
         } else if (selectedNodes[node.id]) {
           return node;
         } else if (neightbours.includes(node.id)) {
           return { ...node, type: "custom-node", hidden: false };
+        }
+
+        if (deleting) {
+          return { ...node, hidden: true };
         }
 
         return hideAll ? { ...node, hidden: true } : node;
@@ -140,6 +149,10 @@ const useStore = create<RFState>((set, get) => ({
           (neightbours.includes(edge.target) || selectedNodes[edge.target])
         ) {
           return { ...edge, hidden: false };
+        }
+
+        if (deleting) {
+          return { ...edge, hidden: true };
         }
 
         return hideAll ? { ...edge, hidden: true } : edge;
@@ -172,12 +185,11 @@ const useStore = create<RFState>((set, get) => ({
   },
 }));
 
-import LawData from "../../public/parsed.json";
+import LawData from "../../public/output.json";
 
 export const findArticle = (id: string) => {
   for (const topic of LawData as Topic[]) {
     for (const article of topic) {
-      console.log(article.id, id);
       if (article.id === id) {
         return article;
       }

@@ -1,7 +1,7 @@
 import { Handle, Position, NodeResizer } from "reactflow";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { shallow } from "zustand/shallow";
-import useStore from "./store";
+import useStore, { findArticle } from "./store";
 import { FaTimes } from "react-icons/fa";
 
 type DataNode = Article | Alinea | Point | Letter;
@@ -34,6 +34,28 @@ export default function ArticleNode({ data }) {
     return [];
   };
 
+  const buildLinkedText = (links: Link[]) => {
+    return (
+      <p>
+        {links.map(([text, link], i) => {
+          if (!link || link === data.label) return text;
+
+          return (
+            <a
+              key={i}
+              className="font-bold text-sky-600 cursor-pointer"
+              onClick={() => {
+                updateNodeType(link, "article-node", findArticle(link));
+              }}
+            >
+              {text}
+            </a>
+          );
+        })}
+      </p>
+    );
+  };
+
   const constructDataNodeComponent = (data: DataNode, depth: idFormatterKey = 0) => {
     const idFormatter = idFormatters[depth];
     const children = getDataNodeChildren(data);
@@ -49,7 +71,7 @@ export default function ArticleNode({ data }) {
               {data.meta.dv}
             </div>
           )}
-          <span>{data.meta.text}</span>
+          <span>{data.linked ? buildLinkedText(data.linked) : data.meta.text}</span>
         </div>
         {children.map((child) => {
           return constructDataNodeComponent(child, (depth + 1) as idFormatterKey);
