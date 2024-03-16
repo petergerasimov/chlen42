@@ -9,13 +9,21 @@ type ChatBubbleProps = {
 function ChatBubble(props: ChatBubbleProps) {
   return (
     <div
-      className={`flex flex-row self-${props.other ? "start" : "end"} gap-4`}
+      className={`flex flex-row self-${
+        props.other ? "start" : "end"
+      } gap-4 whitespace-pre-wrap`}
       style={{
         alignSelf: props.other ? "flex-start" : "flex-end",
       }}
     >
-      <div className={`rounded-lg ${props.other ? "bg-gray-700" : "bg-sky-600"} p-4 flex gap-2`}>
-        <div className={`text-sm leading-none ${props.other ? "" : "text-right"}`}>
+      <div
+        className={`rounded-lg ${
+          props.other ? "bg-gray-700" : "bg-sky-600"
+        } p-4 flex gap-2`}
+      >
+        <div
+          className={`text-sm leading-none ${props.other ? "" : "text-right"}`}
+        >
           <p className={`font-semibold`}>{props.name}</p>
           <p>{props.message}</p>
         </div>

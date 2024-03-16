@@ -46,7 +46,7 @@ parser.add_argument('--verbose', type=bool, required=False,
 args = parser.parse_args()
 data_dir = args.data_dir
 verbose = args.verbose
-llm = OpenAI(model='gpt-4')
+llm = OpenAI(model='gpt-4-turbo-preview')
 embed_model = OpenAIEmbedding()
 
 service_context = ServiceContext.from_defaults(llm=llm, embed_model=embed_model)
@@ -85,7 +85,7 @@ CORS(app)
 @app.route('/chat', methods=['POST'])
 def chat():
     query = request.json['query']
-    return chatbot('Кои части от членовете по-горе са най-релевантни за следния въпрос: "' + query + '"?')
+    return chatbot('Дай ми списък на чл. и ал. по-горе които са най-релевантни за следния въпрос: "' + query + '". Списъкът трябва да включва номера на членовете и алинеите и няколко думи кратко обяснение защо е релевантно.')
 
 
 if __name__ == '__main__':
