@@ -97,16 +97,16 @@ const useStore = create<RFState>((set, get) => ({
   setEdges: (edges: Edge[]) => {
     set({ edges });
   },
-  updateNodeType: (nodeIds: string[], type: string) => {
+  updateNodeType: (nodeIds: string[], type: string, forceKeepOld: boolean = false) => {
     let hideAll = false;
-    console.log(nodeIds);
+    //console.log(nodeIds);
     if (Object.keys(selectedNodes).length === 0) {
       hideAll = true;
     }
 
     let deleting = false;
     for (const nodeId of nodeIds) {
-      if (selectedNodes[nodeId]) {
+      if (selectedNodes[nodeId] && !forceKeepOld) {
         delete selectedNodes[nodeId];
         deleting = true;
 

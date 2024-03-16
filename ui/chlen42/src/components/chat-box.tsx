@@ -59,7 +59,7 @@ export function ChatBox() {
       .then(async (data) => {
         const articleNodeIds = data.related_files.map((s) => s.match(/^dataset\/([a-я0-9]+)\.txt$/)?.[1] ?? "");
 
-        updateNodeType(articleNodeIds, "article-node");
+        updateNodeType(articleNodeIds, "article-node", true);
         setIsFetching(false);
         setMessages((prev) => [...prev, { content: data.response, fromBot: true }]);
       })
