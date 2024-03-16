@@ -125,14 +125,9 @@ const useStore = create<RFState>((set, get) => ({
         }
       } else {
         selectedNodes[nodeId] = true;
-        // for (const node of get().edges) {
-        //   node.hidden = true;
-        // }
       }
     }
 
-    //console.log("TEST");
-    //console.log(selectedNodes);
     const neightbours = get()
       .edges.filter((edge) => selectedNodes[edge.source] || selectedNodes[edge.target])
       .map((edge) => (selectedNodes[edge.source] ? edge.target : edge.source));

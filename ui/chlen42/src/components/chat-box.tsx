@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import ChatBubble from "./chat-bubble";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
-import useStore, { findArticle, selector } from "./store";
+import useStore, { selector } from "./store";
 import { shallow } from "zustand/shallow";
 
 type Message = {
