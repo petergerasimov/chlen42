@@ -17,7 +17,7 @@ export default function CustomNode({ data }: { data: CustomNodeData }) {
       <div
         className="bg-white rounded-full aspect-square w-10 justify-center text-black flex items-center p-1 border border-black cursor-pointer"
         onClick={() => {
-          updateNodeType(data.label, "article-node", findArticle(data.label));
+          updateNodeType([data.label], "article-node");
         }}
       >
         {data.label}

@@ -7,8 +7,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ChatBubble from "./chat-bubble";
-import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
+import useStore, { findArticle, selector } from "./store";
+import { shallow } from "zustand/shallow";
 
 type Message = {
   content: string;
@@ -20,6 +22,7 @@ export function ChatBox() {
   const [messages, setMessages] = useState<Message[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { updateNodeType } = useStore(selector, shallow);
 
   useEffect(() => {
     setTimeout(
@@ -54,12 +57,17 @@ export function ChatBox() {
       inputRef.current.value = "";
     }
     fetchBot(typedMessage).then((data) => {
+      const articleNodeIds = data.related_files.map(
+        (s) => s.match(/^dataset\/([a-я0-9]+)\.txt$/)?.[1] ?? ""
+      );
+
+      updateNodeType(articleNodeIds, "article-node");
       setMessages((prev) => [
         ...prev,
         { content: data.response, fromBot: true },
       ]);
     });
-  }, [typedMessage]);
+  }, [typedMessage, updateNodeType]);
 
   useEffect(() => {
     const sendMsg = (e: KeyboardEvent) => {
