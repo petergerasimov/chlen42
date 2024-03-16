@@ -78,7 +78,7 @@ for chlen in data:
 #   if len(all) > 1:
 #     print(all)
 
-print(json.dumps(data, indent=2, ensure_ascii=False))
+# print(json.dumps(data, indent=2, ensure_ascii=False))
 
 
 # json.dump({
