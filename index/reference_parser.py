@@ -57,6 +57,9 @@ def parse_references(input_text):
             results += [(full_segment, None)]
         else:
             results += [(full_segment[start:end], id) for (start, end), id, _ in subresult]
+            last_end = subresult[-1][0][1]
+            if last_end < len(full_segment):
+                results += [(full_segment[last_end:], None)]
 
     # merge consecutive None
     merged_results = []
