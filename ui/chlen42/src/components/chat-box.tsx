@@ -86,7 +86,7 @@ export function ChatBox() {
   });
 
   return (
-    <div className="w-100 h-full flex flex-col gap-2">
+    <div className="w-100 h-full flex flex-col gap-2" style={{ direction: "ltr" }}>
       <ScrollArea className="h-full">
         <div className="flex flex-col gap-2 pr-3">
           {messages.map((msg, i) => (
