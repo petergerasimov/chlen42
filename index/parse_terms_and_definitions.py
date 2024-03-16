@@ -1,5 +1,6 @@
 import json
 import os
+from reference_parser import parse_references
 data = json.load(open("../ui/chlen42/public/parsed.json", "r"))
 
 def get_children(obj):
@@ -35,8 +36,17 @@ def process_children(item, level=0):
   for child in children:
     terms_to_link = defined_terms # + [(t, "UNKNOWN") for t in used_terms]
     # print(terms_to_link)
-    child['linked'] = link_terms(child['text'], terms_to_link)
-    # print(child['linked'])
+    term_parts = link_terms(child['text'], terms_to_link)
+    final_parts = []
+    for part, link in term_parts:
+      if link is None:
+        references = parse_references(part)
+        final_parts += references
+        # print("case 1", references)
+      else:
+        final_parts.append((part, link))
+        # print("case 2", (part, link))
+    child['linked'] = final_parts
     process_children(child, level + 1)
 
 with open(f"./similar.json") as f:
@@ -78,7 +88,7 @@ for chlen in data:
 #   if len(all) > 1:
 #     print(all)
 
-# print(json.dumps(data, indent=2, ensure_ascii=False))
+print(json.dumps(data, indent=2, ensure_ascii=False))
 
 
 # json.dump({
