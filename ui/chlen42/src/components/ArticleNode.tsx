@@ -15,6 +15,8 @@ const idFormatters = {
 type idFormatterKey = keyof typeof idFormatters;
 
 export default function ArticleNode({ data }) {
+  const { updateNodeType } = useStore(selector, shallow);
+
   const getDataNodeChildren = (data: DataNode): DataNode[] => {
     if (Object.keys(data).includes("alineas")) {
       return (data as Article).alineas;
@@ -36,7 +38,7 @@ export default function ArticleNode({ data }) {
           key={i}
           className="font-bold text-sky-600 cursor-pointer"
           onClick={() => {
-            updateNodeType(link, "article-node", findArticle(link));
+            updateNodeType([link], "article-node");
           }}
         >
           {text}

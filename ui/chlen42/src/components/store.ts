@@ -15,30 +15,17 @@ import {
   applyEdgeChanges,
 } from "reactflow";
 
-import {
-  forceSimulation,
-  forceManyBody,
-  forceLink,
-  forceX,
-  forceY,
-} from "d3-force";
+import { forceSimulation, forceManyBody, forceLink, forceX, forceY } from "d3-force";
 import GraphData from "../../public/flow-graph.json";
 
 const simulation = forceSimulation(GraphData.nodes)
   .force("charge", forceManyBody().strength(-120))
-  .force(
-    "link",
-    forceLink(GraphData.links).distance(500).strength(0.2).iterations(15)
-  )
+  .force("link", forceLink(GraphData.links).distance(500).strength(0.2).iterations(15))
   .force("x", forceX())
   .force("y", forceY())
   .stop();
 
-simulation.tick(
-  Math.ceil(
-    Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())
-  )
-);
+simulation.tick(Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())));
 
 for (const node of GraphData.nodes) {
   node.type = "custom-node";
@@ -112,6 +99,7 @@ const useStore = create<RFState>((set, get) => ({
   },
   updateNodeType: (nodeIds: string[], type: string) => {
     let hideAll = false;
+    console.log(nodeIds);
     if (Object.keys(selectedNodes).length === 0) {
       hideAll = true;
     }
@@ -137,29 +125,27 @@ const useStore = create<RFState>((set, get) => ({
         }
       } else {
         selectedNodes[nodeId] = true;
-        for (const node of get().edges) {
-          node.hidden = true;
-        }
+        // for (const node of get().edges) {
+        //   node.hidden = true;
+        // }
       }
     }
 
     //console.log("TEST");
     //console.log(selectedNodes);
     const neightbours = get()
-      .edges.filter(
-        (edge) => selectedNodes[edge.source] || selectedNodes[edge.target]
-      )
-      .map((edge) =>
-        nodeIds.includes(edge.source) ? edge.target : edge.source
-      );
+      .edges.filter((edge) => selectedNodes[edge.source] || selectedNodes[edge.target])
+      .map((edge) => (selectedNodes[edge.source] ? edge.target : edge.source));
 
     set({
       nodes: get().nodes.map((node) => {
         if (nodeIds.includes(node.id)) {
           if (selectedNodes[node.id]) {
+            console.log(node.id);
             return {
               ...node,
               type,
+              hidden: false,
               dragHandle: ".drag-handle",
               data: { ...node.data, article: findArticle(node.id) },
             };
