@@ -2,7 +2,12 @@ import { Handle, Position } from "reactflow";
 import { shallow } from "zustand/shallow";
 import useStore, { findArticle, selector } from "./store";
 
-export default function CustomNode({ data }) {
+interface CustomNodeData {
+  label: string;
+  id: string;
+}
+
+export default function CustomNode({ data }: { data: CustomNodeData }) {
   const { updateNodeType } = useStore(selector, shallow);
   //onsole.log(data, findArticle(data.id));
 
