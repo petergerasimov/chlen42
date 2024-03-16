@@ -6,13 +6,16 @@ export default function CustomEdge({
   sourceY,
   targetX,
   targetY,
+  style = {},
 }: {
   id: string;
   sourceX: number;
   sourceY: number;
   targetX: number;
   targetY: number;
+  style: React.CSSProperties;
 }) {
+  console.log(style);
   const [edgePath] = getStraightPath({
     sourceX,
     sourceY,
@@ -22,7 +25,7 @@ export default function CustomEdge({
 
   return (
     <>
-      <BaseEdge id={id} path={edgePath} />
+      <BaseEdge id={id} path={edgePath} style={style} />
     </>
   );
 }

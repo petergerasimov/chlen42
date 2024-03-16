@@ -9,7 +9,7 @@ interface ArticleInfo {
 }
 
 interface FlowGraphData {
-  nodes: { id: string; index: number; data: { label: string }; position: { x: number; y: number } }[];
+  nodes: { id: string; index: number; data: { label: string; size: number }; position: { x: number; y: number } }[];
   links: { id: string; source: number; target: number }[];
 }
 
@@ -65,7 +65,7 @@ const toFlowGraphData = (contents: ArticleInfo[]) => {
     graphData.nodes.push({
       id: content.article_num,
       index: i,
-      data: { label: content.article_num },
+      data: { label: content.article_num, size: 1 },
       position: { x, y },
     });
     articleNums.set(content.article_num, 5);
@@ -99,11 +99,11 @@ const toFlowGraphData = (contents: ArticleInfo[]) => {
     });
   }
 
-  // for (const node of graphData.nodes) {
-  //   if (articleNums.get(node.id)) {
-  //     node.size = articleNums.get(node.id)!;
-  //   }
-  // }
+  for (const node of graphData.nodes) {
+    if (articleNums.get(node.id)) {
+      node.data.size = articleNums.get(node.id)!;
+    }
+  }
 
   return graphData;
 };

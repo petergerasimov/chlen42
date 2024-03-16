@@ -16,7 +16,7 @@ const idFormatters = {
 type idFormatterKey = keyof typeof idFormatters;
 
 export default function ArticleNode({ data }) {
-  const { updateNodeType } = useStore(selector, shallow);
+  const { updateNodeType, highlistNeightbour } = useStore(selector, shallow);
 
   const getDataNodeChildren = (data: DataNode): DataNode[] => {
     if (Object.keys(data).includes("alineas")) {
@@ -30,6 +30,10 @@ export default function ArticleNode({ data }) {
     return [];
   };
 
+  const linkOnMouseEnter = (link: string, color: string = "white") => {
+    return highlistNeightbour(data.label, link, color);
+  };
+
   const buildLinkedText = (links: Link[]) => {
     return links.map(([text, link], i) => {
       if (!link || link === data.label) return text;
@@ -38,6 +42,12 @@ export default function ArticleNode({ data }) {
         <a
           key={i}
           className="font-bold text-sky-600 cursor-pointer"
+          onMouseEnter={() => {
+            linkOnMouseEnter(link, "#0891b2");
+          }}
+          onMouseLeave={() => {
+            linkOnMouseEnter(link);
+          }}
           onClick={() => {
             updateNodeType([link], "article-node");
           }}
@@ -81,7 +91,7 @@ export default function ArticleNode({ data }) {
           onClick={() => updateNodeType([data.label], "custom-node")}
         />
       </div>
-      <ScrollArea className="h-full resize bg-white rounded-b-xl pl-2 nowheel nodrag text-black">
+      <ScrollArea className="h-full resize bg-white rounded-b-xl pl-2 nowheel nodrag text-black w-[500px] h-[250px]">
         {data.article ? constructDataNodeComponent(data.article) : <div>Loading...</div>}
       </ScrollArea>
       <Handle type="source" position={Position.Bottom} id="a" />

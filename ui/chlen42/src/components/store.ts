@@ -68,6 +68,7 @@ export const selector = (state) => ({
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
   updateNodeType: state.updateNodeType,
+  highlistNeightbour: state.highlistNeightbour,
 });
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
@@ -201,6 +202,28 @@ const useStore = create<RFState>((set, get) => ({
     //     return { ...edge, hidden: true };
     //   }),
     // });
+  },
+  // dont iterate all nodes and edges ?
+  highlistNeightbour: (source: string, link: string, color: string = "white") => {
+    set({
+      nodes: get().nodes.map((node) => {
+        if (node.id === link) {
+          return { ...node, data: { ...node.data, color } };
+        }
+
+        return node;
+      }),
+    });
+    set({
+      edges: get().edges.map((edge) => {
+        if (edge.source === link || edge.target === link) {
+          console.log(edge);
+          return { ...edge, style: { ...edge.style, stroke: color == "white" ? "#b1b1b7" : color } };
+        }
+
+        return edge;
+      }),
+    });
   },
 }));
 
