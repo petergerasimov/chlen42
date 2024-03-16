@@ -68,7 +68,6 @@ export default function ArticleNode({ data }) {
       </div>
     );
   };
-  const { updateNodeType } = useStore(selector, shallow);
 
   return (
     <div className="rounded-xl shadow-xl">
@@ -76,7 +75,7 @@ export default function ArticleNode({ data }) {
       <div className="w-full h-10 bg-slate-500 drag-handle cursor-grab rounded-t-xl">
         <FaTimes
           className="text-white absolute right-2 top-2 cursor-pointer"
-          onClick={() => updateNodeType(data.label, "custom-node", null)}
+          onClick={() => updateNodeType([data.label], "custom-node")}
         />
       </div>
       <div className="bg-white text-black w-[500px] h-[250px] overflow-y-scroll nodrag resize rounded-b-xl pl-2 styled-scrollbar">

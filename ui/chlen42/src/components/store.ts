@@ -15,17 +15,30 @@ import {
   applyEdgeChanges,
 } from "reactflow";
 
-import { forceSimulation, forceManyBody, forceLink, forceX, forceY } from "d3-force";
+import {
+  forceSimulation,
+  forceManyBody,
+  forceLink,
+  forceX,
+  forceY,
+} from "d3-force";
 import GraphData from "../../public/flow-graph.json";
 
 const simulation = forceSimulation(GraphData.nodes)
   .force("charge", forceManyBody().strength(-120))
-  .force("link", forceLink(GraphData.links).distance(500).strength(0.2).iterations(15))
+  .force(
+    "link",
+    forceLink(GraphData.links).distance(500).strength(0.2).iterations(15)
+  )
   .force("x", forceX())
   .force("y", forceY())
   .stop();
 
-simulation.tick(Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())));
+simulation.tick(
+  Math.ceil(
+    Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())
+  )
+);
 
 for (const node of GraphData.nodes) {
   node.type = "custom-node";
@@ -97,51 +110,65 @@ const useStore = create<RFState>((set, get) => ({
   setEdges: (edges: Edge[]) => {
     set({ edges });
   },
-  updateNodeType: (nodeId: string, type: string, article: Article) => {
+  updateNodeType: (nodeIds: string[], type: string) => {
     let hideAll = false;
     if (Object.keys(selectedNodes).length === 0) {
       hideAll = true;
     }
 
     let deleting = false;
-    if (selectedNodes[nodeId]) {
-      delete selectedNodes[nodeId];
-      deleting = true;
+    for (const nodeId of nodeIds) {
+      if (selectedNodes[nodeId]) {
+        delete selectedNodes[nodeId];
+        deleting = true;
 
-      //reset all nodes
-      if (Object.keys(selectedNodes).length === 0) {
-        set({
-          nodes: get().nodes.map((node) => {
-            return { ...node, hidden: false, type: "custom-node" };
-          }),
-          edges: get().edges.map((edge) => {
-            return { ...edge, hidden: false };
-          }),
-        });
+        //reset all nodes
+        if (Object.keys(selectedNodes).length === 0) {
+          set({
+            nodes: get().nodes.map((node) => {
+              return { ...node, hidden: false, type: "custom-node" };
+            }),
+            edges: get().edges.map((edge) => {
+              return { ...edge, hidden: false };
+            }),
+          });
 
-        return;
-      }
-    } else {
-      selectedNodes[nodeId] = true;
-      for (const node of get().edges) {
-        node.hidden = true;
+          return;
+        }
+      } else {
+        selectedNodes[nodeId] = true;
+        for (const node of get().edges) {
+          node.hidden = true;
+        }
       }
     }
 
     //console.log("TEST");
     //console.log(selectedNodes);
     const neightbours = get()
-      .edges.filter((edge) => selectedNodes[edge.source] || selectedNodes[edge.target])
-      .map((edge) => (selectedNodes[edge.source] ? edge.target : edge.source));
+      .edges.filter(
+        (edge) => selectedNodes[edge.source] || selectedNodes[edge.target]
+      )
+      .map((edge) =>
+        nodeIds.includes(edge.source) ? edge.target : edge.source
+      );
 
     set({
       nodes: get().nodes.map((node) => {
-        if (node.id === nodeId) {
-          console.log(node.id, nodeId, node.id === nodeId, selectedNodes);
+        if (nodeIds.includes(node.id)) {
           if (selectedNodes[node.id]) {
-            return { ...node, type, hidden: false, dragHandle: ".drag-handle", data: { ...node.data, article } };
+            return {
+              ...node,
+              type,
+              dragHandle: ".drag-handle",
+              data: { ...node.data, article: findArticle(node.id) },
+            };
           }
-          return { ...node, hidden: !neightbours.includes(node.id), type: "custom-node" };
+          return {
+            ...node,
+            hidden: !neightbours.includes(node.id),
+            type: "custom-node",
+          };
         } else if (selectedNodes[node.id]) {
           return node;
         } else if (neightbours.includes(node.id)) {

@@ -96,8 +96,7 @@ export default function Graph() {
 
   const onNodeClick = (event, node) => {
     console.log("TONI", node, findArticle(node.id));
-    const article = findArticle(node.id);
-    updateNodeType(node.id, "article-node", article);
+    updateNodeType([node.id], "article-node");
     console.log(node);
   };
 
