@@ -20,6 +20,7 @@ type Message = {
 export function ChatBox() {
   const [typedMessage, setTypedMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isFetching, setIsFetching] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { updateNodeType } = useStore(selector, shallow);
@@ -53,12 +54,21 @@ export function ChatBox() {
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-    fetchBot(typedMessage).then((data) => {
-      const articleNodeIds = data.related_files.map((s) => s.match(/^dataset\/([a-я0-9]+)\.txt$/)?.[1] ?? "");
+    setIsFetching(true);
+    fetchBot(typedMessage)
+      .then(async (data) => {
+        const articleNodeIds = data.related_files.map((s) => s.match(/^dataset\/([a-я0-9]+)\.txt$/)?.[1] ?? "");
 
-      updateNodeType(articleNodeIds, "article-node");
-      setMessages((prev) => [...prev, { content: data.response, fromBot: true }]);
-    });
+        updateNodeType(articleNodeIds, "article-node");
+        setIsFetching(false);
+        setMessages((prev) => [...prev, { content: data.response, fromBot: true }]);
+      })
+      .catch(async (e) => {
+        console.error(e);
+        await new Promise((r) => setTimeout(r, 5000));
+        setIsFetching(false);
+        setMessages((prev) => [...prev, { content: "Error", fromBot: true }]);
+      });
   }, [typedMessage, updateNodeType]);
 
   useEffect(() => {
@@ -78,10 +88,23 @@ export function ChatBox() {
   return (
     <div className="w-100 h-full flex flex-col gap-2">
       <ScrollArea className="h-full">
-        <div className="flex flex-col gap-2 pr-5">
+        <div className="flex flex-col gap-2 pr-3">
           {messages.map((msg, i) => (
             <ChatBubble key={i} name={msg.fromBot ? "Bot" : "You"} message={msg.content} other={msg.fromBot} />
           ))}
+          {isFetching && (
+            <ChatBubble
+              name="Bot"
+              message={
+                <div className="flex gap-2 mt-2">
+                  <div className="animate-bounce bg-gray-200 h-2 w-2 rounded-full delay-100" />
+                  <div className="animate-bounce bg-gray-200 h-2 w-2 rounded-full delay-200" />
+                  <div className="animate-bounce bg-gray-200 h-2 w-2 rounded-full delay-300" />
+                </div>
+              }
+              other={true}
+            />
+          )}
           <div ref={messagesEndRef} />
         </div>
       </ScrollArea>
@@ -93,7 +116,7 @@ export function ChatBox() {
             setTypedMessage(el.target.value);
           }}
         />
-        <Button onClick={send}>Search</Button>
+        <Button onClick={send}>Ask</Button>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { FaClockRotateLeft } from "react-icons/fa6";
 import { shallow } from "zustand/shallow";
 import useStore, { selector, findArticle } from "./store";
 import { FaTimes } from "react-icons/fa";
+import { ScrollArea } from "./ui/scroll-area";
 
 type DataNode = Article | Alinea | Point | Letter;
 
@@ -80,10 +81,9 @@ export default function ArticleNode({ data }) {
           onClick={() => updateNodeType([data.label], "custom-node")}
         />
       </div>
-      <div className="bg-white text-black w-[500px] h-[250px] overflow-y-scroll nodrag resize rounded-b-xl pl-2 styled-scrollbar">
-        {/* <NodeResizer maxHeight={500} /> */}
+      <ScrollArea className="h-full resize bg-white rounded-b-xl pl-2 nowheel nodrag text-black">
         {data.article ? constructDataNodeComponent(data.article) : <div>Loading...</div>}
-      </div>
+      </ScrollArea>
       <Handle type="source" position={Position.Bottom} id="a" />
     </div>
   );
